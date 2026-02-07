@@ -40,6 +40,8 @@ builder.Services.AddSwaggerGen(options =>
             new string[] { }
         }
     });
+
+
 });
 
 builder.Services.AddDbContext<AppDbContext>(options =>

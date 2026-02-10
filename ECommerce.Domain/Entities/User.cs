@@ -1,9 +1,4 @@
 ﻿using ECommerce.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ECommerce.Domain.Entities
 {
@@ -11,11 +6,17 @@ namespace ECommerce.Domain.Entities
     {
         public Guid Id { get; set; }
 
+        public string Name { get; set; } = null!;
+
+        public string Email { get; set; } = null!;
+
+        public string PhoneNo { get; set; } = null!;
+
         public string Username { get; set; } = null!;
 
         public string PasswordHash { get; set; } = null!;
 
-        public UserRole Role { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
 
         public bool IsActive { get; set; } = true;
 

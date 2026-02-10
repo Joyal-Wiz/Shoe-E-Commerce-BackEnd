@@ -1,0 +1,12 @@
+﻿using System;
+
+namespace ECommerce.Application.Exceptions
+{
+    public class BadRequestException : Exception
+    {
+        public BadRequestException(string message)
+            : base(message)
+        {
+        }
+    }
+}

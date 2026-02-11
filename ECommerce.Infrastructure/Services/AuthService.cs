@@ -2,6 +2,7 @@
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
 using ECommerce.Domain.Entities;
+using ECommerce.Domain.Enums;
 using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -23,7 +24,7 @@ namespace ECommerce.Infrastructure.Services
             _jwtService = jwtService;
         }
 
-        // LOGIN 
+        // USER LOGIN 
         public LoginResponseDto Login(LoginDto loginDto)
         {
             var user = _context.Users
@@ -44,14 +45,22 @@ namespace ECommerce.Infrastructure.Services
                 throw new UnauthorizedException("Invalid username or password");
 
             var token = _jwtService.GenerateToken(user);
+            var refreshToken = _jwtService.GenerateRefreshToken();
+
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            _context.SaveChanges();
 
             return new LoginResponseDto
             {
-                Token = token
+                Token = token,
+                RefreshToken = refreshToken
             };
+
         }
 
-        // SIGNUP
+        // USER SIGNUP
         public async Task SignupAsync(SignUpDto dto)
         {
             if (await _context.Users.AnyAsync(x => x.Username == dto.Username))
@@ -67,15 +76,78 @@ namespace ECommerce.Infrastructure.Services
                 Email = dto.Email,
                 PhoneNo = dto.PhoneNo,
                 Username = dto.Username,
-                Role = Domain.Enums.UserRole.User,
+                Role = UserRole.User,
                 IsActive = true
             };
 
-            // Useing the same password service in as login
+            // Using same password service as login
             user.PasswordHash = _passwordService.HashPassword(dto.Password);
 
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
         }
+
+        // ADMIN LOGIN
+        public LoginResponseDto AdminLogin(AdminLoginDto dto)
+        {
+            var admin = _context.Users
+                .FirstOrDefault(x => x.Username == dto.Username
+                                  && x.Role == UserRole.Admin);
+
+            if (admin == null)
+                throw new UnauthorizedException("Invalid admin credentials");
+
+            if (!admin.IsActive)
+                throw new UnauthorizedException("Admin account is inactive");
+
+            var isPasswordValid = _passwordService.VerifyPassword(
+                admin.PasswordHash,
+                dto.Password
+            );
+
+            if (!isPasswordValid)
+                throw new UnauthorizedException("Invalid admin credentials");
+
+            var token = _jwtService.GenerateToken(admin);
+            var refreshToken = _jwtService.GenerateRefreshToken();
+
+            admin.RefreshToken = refreshToken;
+            admin.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            _context.SaveChanges();
+
+            return new LoginResponseDto
+            {
+                Token = token,
+                RefreshToken = refreshToken
+            };
+
+        }
+        public LoginResponseDto RefreshToken(RefreshTokenDto dto)
+        {
+            var user = _context.Users
+                .FirstOrDefault(x => x.RefreshToken == dto.RefreshToken);
+
+            if (user == null)
+                throw new UnauthorizedException("Invalid refresh token");
+
+            if (user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+                throw new UnauthorizedException("Refresh token expired");
+
+            var newAccessToken = _jwtService.GenerateToken(user);
+            var newRefreshToken = _jwtService.GenerateRefreshToken();
+
+            user.RefreshToken = newRefreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+
+            _context.SaveChanges();
+
+            return new LoginResponseDto
+            {
+                Token = newAccessToken,
+                RefreshToken = newRefreshToken
+            };
+        }
+
     }
 }

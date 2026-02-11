@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace ECommerce.Application.DTO.Auth
 {
-    public class LoginResponseDto
+    public class RefreshTokenDto
     {
-        public string Token { get; set; }
         public string RefreshToken { get; set; }
     }
 }

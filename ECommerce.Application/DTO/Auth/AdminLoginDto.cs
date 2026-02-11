@@ -6,9 +6,10 @@ using System.Threading.Tasks;
 
 namespace ECommerce.Application.DTO.Auth
 {
-    public class LoginResponseDto
+    public class AdminLoginDto
     {
-        public string Token { get; set; }
-        public string RefreshToken { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
     }
+
 }

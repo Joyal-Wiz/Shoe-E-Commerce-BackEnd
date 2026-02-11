@@ -8,6 +8,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
+using System.Security.Cryptography;
+
 
 namespace ECommerce.Infrastructure.Services
 {
@@ -52,5 +54,11 @@ namespace ECommerce.Infrastructure.Services
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
+        public string GenerateRefreshToken()
+        {
+            var randomBytes = RandomNumberGenerator.GetBytes(64);
+            return Convert.ToBase64String(randomBytes);
+        }
+
     }
 }

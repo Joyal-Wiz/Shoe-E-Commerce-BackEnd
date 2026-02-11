@@ -4,6 +4,7 @@ using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260210051254_SeedAdmin")]
+    partial class SeedAdmin
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -50,12 +53,6 @@ namespace ECommerce.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("RefreshToken")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("RefreshTokenExpiryTime")
-                        .HasColumnType("datetime2");
-
                     b.Property<int>("Role")
                         .HasColumnType("int");
 
@@ -70,12 +67,12 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("a3e75b20-c768-4acd-ab5a-8bb294965541"),
-                            CreatedAt = new DateTime(2026, 2, 10, 6, 49, 31, 827, DateTimeKind.Utc).AddTicks(7656),
+                            Id = new Guid("dcf9b793-25ea-4405-a141-f07a9eacc3db"),
+                            CreatedAt = new DateTime(2026, 2, 10, 5, 12, 54, 176, DateTimeKind.Utc).AddTicks(3950),
                             Email = "admin@ecommerce.com",
                             IsActive = true,
                             Name = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEOK2ewsqrAGdvNq7402xpy+CA2BtlUrDqY52ffKyZzZ9vUn8XPCOj8j1jULBd9eMbg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIv7c9/eoJ8oVK53E3TaalFLlUqLZ7VplE77amKwuSgdJh+VLHzVddYeY69Wz1ppeA==",
                             PhoneNo = "9999999999",
                             Role = 2,
                             Username = "admin"

@@ -24,7 +24,7 @@ namespace ECommerce.API.Controllers
             return Ok(result);
         }
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpGet("me")]
         public IActionResult Me()
         {

@@ -11,5 +11,9 @@ namespace ECommerce.Application.Interface
     {
         LoginResponseDto Login(LoginDto loginDto);
         Task SignupAsync(SignUpDto dto);
+        LoginResponseDto AdminLogin(AdminLoginDto dto);
+        LoginResponseDto RefreshToken(RefreshTokenDto dto);
+
+
     }
 }

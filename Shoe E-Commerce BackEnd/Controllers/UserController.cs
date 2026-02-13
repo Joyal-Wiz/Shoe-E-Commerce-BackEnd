@@ -1,8 +1,10 @@
-﻿using ECommerce.Application.DTO.Auth;
+﻿using ECommerce.Application.Constants;
+using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace ECommerce.API.Controllers
 {
@@ -17,34 +19,40 @@ namespace ECommerce.API.Controllers
             _authService = authService;
         }
 
+        // USER LOGIN
         [HttpPost("login")]
         public IActionResult Login([FromBody] LoginDto loginDto)
         {
             var result = _authService.Login(loginDto);
-            return Ok(result);
+
+            return Ok(ApiResponse<LoginResponseDto>
+                .SuccessResponse(ApiMessages.Success.Login, result));
         }
 
+        // GET CURRENT USER
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public IActionResult Me()
         {
-            return Ok(new
+            var userData = new
             {
-                UserId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value,
+                UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
                 Username = User.Identity?.Name,
-                Role = User.FindFirst(System.Security.Claims.ClaimTypes.Role)?.Value
-            });
+                Role = User.FindFirst(ClaimTypes.Role)?.Value
+            };
+
+            return Ok(ApiResponse<object>
+                .SuccessResponse(ApiMessages.Success.UserDetailsFetched, userData));
         }
+
+        // USER SIGNUP
         [HttpPost("signup")]
         public async Task<IActionResult> Signup([FromBody] SignUpDto dto)
         {
             await _authService.SignupAsync(dto);
 
-            return Ok(new ApiResponse
-            {
-                Status = "success",
-                Message = "User registered successfully"
-            });
+            return Ok(ApiResponse<object>
+                .SuccessResponse(ApiMessages.Success.Signup, null));
         }
     }
 }

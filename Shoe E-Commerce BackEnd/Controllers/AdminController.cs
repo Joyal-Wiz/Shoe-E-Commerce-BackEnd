@@ -1,5 +1,7 @@
-﻿using ECommerce.Application.DTO.Auth;
+﻿using ECommerce.Application.Constants;
+using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Shoe_E_Commerce_BackEnd.Controllers
@@ -19,7 +21,9 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
         public IActionResult Login([FromBody] AdminLoginDto dto)
         {
             var response = _authService.AdminLogin(dto);
-            return Ok(response);
+
+            return Ok(ApiResponse<LoginResponseDto>
+                .SuccessResponse(ApiMessages.Success.AdminLogin, response));
         }
     }
 }

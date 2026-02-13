@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.DTO.Auth;
+﻿using ECommerce.Application.Constants;
+using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
 using ECommerce.Domain.Entities;
@@ -31,10 +32,10 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefault(u => u.Username == loginDto.Username);
 
             if (user == null)
-                throw new UnauthorizedException("Invalid username or password");
+                throw new UnauthorizedException(ApiMessages.Error.InvalidCredentials);
 
             if (!user.IsActive)
-                throw new UnauthorizedException("User account is inactive");
+                throw new UnauthorizedException(ApiMessages.Error.UserInactive);
 
             var isPasswordValid = _passwordService.VerifyPassword(
                 user.PasswordHash,
@@ -42,7 +43,7 @@ namespace ECommerce.Infrastructure.Services
             );
 
             if (!isPasswordValid)
-                throw new UnauthorizedException("Invalid username or password");
+                throw new UnauthorizedException(ApiMessages.Error.InvalidCredentials);
 
             var token = _jwtService.GenerateToken(user);
             var refreshToken = _jwtService.GenerateRefreshToken();
@@ -64,10 +65,10 @@ namespace ECommerce.Infrastructure.Services
         public async Task SignupAsync(SignUpDto dto)
         {
             if (await _context.Users.AnyAsync(x => x.Username == dto.Username))
-                throw new AlreadyExistsException("Username already exists");
+                throw new AlreadyExistsException(ApiMessages.Error.UsernameExists);
 
             if (await _context.Users.AnyAsync(x => x.Email == dto.Email))
-                throw new AlreadyExistsException("Email already exists");
+                throw new AlreadyExistsException(ApiMessages.Error.EmailExists);
 
             var user = new User
             {
@@ -95,10 +96,10 @@ namespace ECommerce.Infrastructure.Services
                                   && x.Role == UserRole.Admin);
 
             if (admin == null)
-                throw new UnauthorizedException("Invalid admin credentials");
+                throw new UnauthorizedException(ApiMessages.Error.InvalidAdminCredentials);
 
             if (!admin.IsActive)
-                throw new UnauthorizedException("Admin account is inactive");
+                throw new UnauthorizedException(ApiMessages.Error.AdminInactive);
 
             var isPasswordValid = _passwordService.VerifyPassword(
                 admin.PasswordHash,
@@ -106,7 +107,7 @@ namespace ECommerce.Infrastructure.Services
             );
 
             if (!isPasswordValid)
-                throw new UnauthorizedException("Invalid admin credentials");
+                throw new UnauthorizedException(ApiMessages.Error.InvalidAdminCredentials);
 
             var token = _jwtService.GenerateToken(admin);
             var refreshToken = _jwtService.GenerateRefreshToken();
@@ -129,10 +130,10 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefault(x => x.RefreshToken == dto.RefreshToken);
 
             if (user == null)
-                throw new UnauthorizedException("Invalid refresh token");
+                throw new UnauthorizedException(ApiMessages.Error.RefreshTokenInvalid);
 
             if (user.RefreshTokenExpiryTime <= DateTime.UtcNow)
-                throw new UnauthorizedException("Refresh token expired");
+                throw new UnauthorizedException(ApiMessages.Error.RefreshTokenExpired);
 
             var newAccessToken = _jwtService.GenerateToken(user);
             var newRefreshToken = _jwtService.GenerateRefreshToken();

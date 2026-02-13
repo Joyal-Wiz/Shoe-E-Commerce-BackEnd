@@ -1,4 +1,6 @@
-﻿using ECommerce.Application.Exceptions;
+﻿using ECommerce.Application.Constants;
+using ECommerce.Application.Exceptions;
+using ECommerce.Application.Responses;
 using System.Net;
 using System.Text.Json;
 
@@ -25,7 +27,7 @@ namespace ECommerce.API.Middleware
             }
         }
 
-        private static Task HandleExceptionAsync(HttpContext context, Exception exception)
+        private async Task HandleExceptionAsync(HttpContext context, Exception exception)
         {
             context.Response.ContentType = "application/json";
 
@@ -38,12 +40,23 @@ namespace ECommerce.API.Middleware
             };
 
 
-            var response = new
+            var message = exception switch
             {
-                message = exception.Message
+                _ => exception.Message
             };
 
-            return context.Response.WriteAsync(JsonSerializer.Serialize(response));
+            if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
+            {
+                message = ApiMessages.Error.ServerError;
+            }
+
+            var response = ApiResponse<object>
+                .FailureResponse(message);
+
+            var json = JsonSerializer.Serialize(response);
+
+            await context.Response.WriteAsync(json);
         }
+
     }
 }

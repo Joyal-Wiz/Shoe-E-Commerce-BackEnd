@@ -33,6 +33,20 @@ namespace ECommerce.API.Controllers
                     )
             );
         }
+        [HttpGet("{productId}")]
+        public async Task<IActionResult> GetProductById(Guid productId)
+        {
+            var result = await _productService.GetProductByIdAsync(productId);
+
+            return Ok(
+                ApiResponse<ProductResponseDto>
+                    .SuccessResponse(
+                        SuccessMessages.ProductsFetchedSuccessfully,
+                        result
+                    )
+            );
+        }
+
 
         [Authorize(Roles = "Admin")]
         [HttpPost("create")]

@@ -11,6 +11,8 @@ namespace ECommerce.Application.Interface
     GetAllProductsAsync(PaginationRequestDto pagination);
 
         Task<ProductResponseDto> CreateProductAsync(CreateProductDto dto);
+        Task<ProductResponseDto> GetProductByIdAsync(Guid productId);
+
     }
 
 }

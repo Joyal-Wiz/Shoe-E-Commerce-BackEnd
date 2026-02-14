@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.DTO.Common;
 using ECommerce.Application.DTO.Product;
+using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Data;
@@ -87,6 +88,29 @@ namespace ECommerce.Infrastructure.Services
                 CategoryName = category.Name
             };
         }
+        public async Task<ProductResponseDto> GetProductByIdAsync(Guid productId)
+        {
+            var product = await _context.Products
+                .Include(p => p.Category)
+                .AsNoTracking()
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null)
+                throw new NotFoundException("Product not found");
+
+            return new ProductResponseDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Stock = product.Stock,
+                ImageUrl = product.ImageUrl,
+                CategoryId = product.CategoryId,
+                CategoryName = product.Category?.Name
+            };
+        }
+
 
 
     }

@@ -95,8 +95,12 @@ app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
-app.UseAuthentication();
-app.UseAuthorization();
+
+
+app.UseAuthentication();   // Global Authentication Middleware
+app.UseAuthorization();   // Global Authorization Middleware
+
+
 
 app.MapControllers();
 

@@ -12,8 +12,8 @@ namespace ECommerce.Application.Validators
                 .MinimumLength(4).WithMessage("Admin username must be at least 4 characters");
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Admin password is required")
-                .MinimumLength(6).WithMessage("Password must be at least 6 characters");
+                .NotEmpty().WithMessage("Admin password is required");
+                
         }
     }
 }

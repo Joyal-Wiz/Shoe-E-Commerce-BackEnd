@@ -16,7 +16,7 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
         }
 
         [HttpPost("refresh")]
-        public IActionResult Refresh([FromBody] RefreshTokenDto dto)
+        public IActionResult Refresh(RefreshTokenDto dto)
         {
             var response = _authService.RefreshToken(dto);
             return Ok(response);

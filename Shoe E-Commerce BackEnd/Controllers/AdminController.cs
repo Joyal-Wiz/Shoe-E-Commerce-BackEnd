@@ -18,7 +18,7 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login([FromBody] AdminLoginDto dto)
+        public IActionResult Login(AdminLoginDto dto)
         {
             var response = _authService.AdminLogin(dto);
 

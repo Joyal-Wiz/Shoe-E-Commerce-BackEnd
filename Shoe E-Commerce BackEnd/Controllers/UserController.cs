@@ -21,7 +21,7 @@ namespace ECommerce.API.Controllers
 
         // USER LOGIN
         [HttpPost("login")]
-        public IActionResult Login([FromBody] LoginDto loginDto)
+        public IActionResult Login(LoginDto loginDto)
         {
             var result = _authService.Login(loginDto);
 
@@ -29,7 +29,7 @@ namespace ECommerce.API.Controllers
                 .SuccessResponse(ApiMessages.Success.Login, result));
         }
 
-        // GET CURRENT USER
+        // GET THE CURRENT USER
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public IActionResult Me()
@@ -47,7 +47,7 @@ namespace ECommerce.API.Controllers
 
         // USER SIGNUP
         [HttpPost("signup")]
-        public async Task<IActionResult> Signup([FromBody] SignUpDto dto)
+        public async Task<IActionResult> Signup(SignUpDto dto)
         {
             await _authService.SignupAsync(dto);
 

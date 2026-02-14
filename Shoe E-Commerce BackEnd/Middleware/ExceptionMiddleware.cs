@@ -1,4 +1,4 @@
-﻿using ECommerce.Application.Constants;
+﻿using ECommerce.Application.Resources;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Responses;
 using System.Net;
@@ -47,7 +47,7 @@ namespace ECommerce.API.Middleware
 
             if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
             {
-                message = ApiMessages.Error.ServerError;
+                message = ErrorMessages.ServerError;
             }
 
             var response = ApiResponse<object>

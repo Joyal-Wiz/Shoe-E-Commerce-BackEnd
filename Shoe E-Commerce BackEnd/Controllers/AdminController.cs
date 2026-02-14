@@ -1,4 +1,4 @@
-﻿using ECommerce.Application.Constants;
+﻿using ECommerce.Application.Resources;
 using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Responses;
@@ -23,7 +23,7 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
             var response = _authService.AdminLogin(dto);
 
             return Ok(ApiResponse<LoginResponseDto>
-                .SuccessResponse(ApiMessages.Success.AdminLogin, response));
+                .SuccessResponse(SuccessMessages.AdminLogin, response));
         }
     }
 }

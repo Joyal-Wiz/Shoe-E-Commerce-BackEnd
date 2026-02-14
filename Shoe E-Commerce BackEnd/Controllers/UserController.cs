@@ -1,7 +1,7 @@
-﻿using ECommerce.Application.Constants;
-using ECommerce.Application.DTO.Auth;
+﻿using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Responses;
+using ECommerce.Application.Resources;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -19,17 +19,15 @@ namespace ECommerce.API.Controllers
             _authService = authService;
         }
 
-        // USER LOGIN
         [HttpPost("login")]
         public IActionResult Login(LoginDto loginDto)
         {
             var result = _authService.Login(loginDto);
 
             return Ok(ApiResponse<LoginResponseDto>
-                .SuccessResponse(ApiMessages.Success.Login, result));
+                .SuccessResponse(SuccessMessages.Login, result));
         }
 
-        // GET THE CURRENT USER
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public IActionResult Me()
@@ -42,17 +40,16 @@ namespace ECommerce.API.Controllers
             };
 
             return Ok(ApiResponse<object>
-                .SuccessResponse(ApiMessages.Success.UserDetailsFetched, userData));
+                .SuccessResponse(SuccessMessages.UserDetailsFetched, userData));
         }
 
-        // USER SIGNUP
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(SignUpDto dto)
         {
             await _authService.SignupAsync(dto);
 
             return Ok(ApiResponse<object>
-                .SuccessResponse(ApiMessages.Success.Signup, null));
+                .SuccessResponse(SuccessMessages.Signup, null));
         }
     }
 }

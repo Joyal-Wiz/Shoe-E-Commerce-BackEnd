@@ -125,6 +125,14 @@
     <value>Login successful</value>
     <comment>Displayed after successful user login</comment>
   </data>
+  <data name="ProductCreatedSuccessfully" xml:space="preserve">
+    <value>Product created successfully.</value>
+    <comment>Returned when a product is created successfully.</comment>
+  </data>
+  <data name="ProductsFetchedSuccessfully" xml:space="preserve">
+    <value>Products fetched successfully.</value>
+    <comment>Returned when all products are retrieved successfully.</comment>
+  </data>
   <data name="Signup" xml:space="preserve">
     <value>User registered successfully</value>
     <comment>Displayed after successful user registration</comment>

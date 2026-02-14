@@ -12,10 +12,17 @@ namespace ECommerce.Infrastructure.Data
         }
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Product> Products { get; set; }
+        public DbSet<Category> Categories { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Product>()
+                .Property(p => p.Price)
+                .HasPrecision(18, 2);
 
             var passwordService = new PasswordService();
 
@@ -33,5 +40,6 @@ namespace ECommerce.Infrastructure.Data
 
             modelBuilder.Entity<User>().HasData(adminUser);
         }
+
     }
 }

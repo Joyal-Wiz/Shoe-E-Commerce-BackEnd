@@ -110,6 +110,49 @@ namespace ECommerce.Infrastructure.Services
                 CategoryName = product.Category?.Name
             };
         }
+        public async Task<PaginatedResponseDto<ProductResponseDto>>
+    GetProductsByCategoryAsync(Guid categoryId, PaginationRequestDto pagination)
+        {
+            var categoryExists = await _context.Categories
+                .AnyAsync(c => c.Id == categoryId);
+
+            if (!categoryExists)
+                throw new NotFoundException("Category not found");
+
+            var query = _context.Products
+                .Include(p => p.Category)
+                .Where(p => p.CategoryId == categoryId)
+                .AsNoTracking()
+                .AsQueryable();
+
+            var totalCount = await query.CountAsync();
+
+            var products = await query
+                .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+                .Take(pagination.PageSize)
+                .ToListAsync();
+
+            var items = products.Select(p => new ProductResponseDto
+            {
+                Id = p.Id,
+                Name = p.Name,
+                Description = p.Description,
+                Price = p.Price,
+                Stock = p.Stock,
+                ImageUrl = p.ImageUrl,
+                CategoryId = p.CategoryId,
+                CategoryName = p.Category?.Name
+            }).ToList();
+
+            return new PaginatedResponseDto<ProductResponseDto>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pagination.PageNumber,
+                PageSize = pagination.PageSize
+            };
+        }
+
 
 
 

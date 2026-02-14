@@ -56,5 +56,23 @@ namespace ECommerce.API.Controllers
             return Ok(result);
         }
 
+        [HttpGet("category/{categoryId}")]
+        public async Task<IActionResult> GetProductsByCategory(
+    Guid categoryId,
+    [FromQuery] PaginationRequestDto pagination)
+        {
+            var result = await _productService
+                .GetProductsByCategoryAsync(categoryId, pagination);
+
+            return Ok(
+                ApiResponse<PaginatedResponseDto<ProductResponseDto>>
+                    .SuccessResponse(
+                        SuccessMessages.ProductsFetchedSuccessfully,
+                        result
+                    )
+            );
+        }
+
+
     }
 }

@@ -36,6 +36,7 @@ namespace ECommerce.API.Middleware
                 UnauthorizedException => (int)HttpStatusCode.Unauthorized,
                 AlreadyExistsException => (int)HttpStatusCode.Conflict,
                 BadRequestException => (int)HttpStatusCode.BadRequest,
+                NotFoundException => (int)HttpStatusCode.NotFound,
                 _ => (int)HttpStatusCode.InternalServerError
             };
 

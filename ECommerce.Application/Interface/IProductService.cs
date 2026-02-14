@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.DTO.Product;
+﻿using ECommerce.Application.DTO.Common;
+using ECommerce.Application.DTO.Product;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,9 @@ namespace ECommerce.Application.Interface
 {
     public interface IProductService
     {
-        Task<List<ProductResponseDto>> GetAllProductsAsync();
+        Task<PaginatedResponseDto<ProductResponseDto>>
+    GetAllProductsAsync(PaginationRequestDto pagination);
+
         Task<ProductResponseDto> CreateProductAsync(CreateProductDto dto);
     }
 

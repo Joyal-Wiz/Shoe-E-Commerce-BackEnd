@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.DTO.Category;
 using ECommerce.Application.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -14,7 +15,8 @@ namespace ECommerce.API.Controllers
         {
             _categoryService = categoryService;
         }
-
+        
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto dto)
         {

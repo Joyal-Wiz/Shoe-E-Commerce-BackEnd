@@ -1,4 +1,5 @@
-﻿using ECommerce.Application.DTO.Product;
+﻿using ECommerce.Application.DTO.Common;
+using ECommerce.Application.DTO.Product;
 using ECommerce.Application.Interface;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Data;
@@ -15,14 +16,22 @@ namespace ECommerce.Infrastructure.Services
             _context = context;
         }
 
-        public async Task<List<ProductResponseDto>> GetAllProductsAsync()
+        public async Task<PaginatedResponseDto<ProductResponseDto>>
+     GetAllProductsAsync(PaginationRequestDto pagination)
         {
-            var products = await _context.Products
+            var query = _context.Products
                 .Include(p => p.Category)
-                .AsNoTracking()  //Tracking is unnecessary overhead.
-                .ToListAsync();  //to execute a database query and retrieve results as a List<T>
+                .AsNoTracking()
+                .AsQueryable();
 
-            var result = products.Select(p => new ProductResponseDto
+            var totalCount = await query.CountAsync();
+
+            var products = await query
+                .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+                .Take(pagination.PageSize)
+                .ToListAsync();
+
+            var items = products.Select(p => new ProductResponseDto
             {
                 Id = p.Id,
                 Name = p.Name,
@@ -34,19 +43,23 @@ namespace ECommerce.Infrastructure.Services
                 CategoryName = p.Category != null ? p.Category.Name : null
             }).ToList();
 
-
-            return result;
+            return new PaginatedResponseDto<ProductResponseDto>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pagination.PageNumber,
+                PageSize = pagination.PageSize
+            };
         }
+
         public async Task<ProductResponseDto> CreateProductAsync(CreateProductDto dto)
         {
-            // Check if category exists
-            var categoryExists = await _context.Categories
-                .AnyAsync(c => c.Id == dto.CategoryId);
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == dto.CategoryId);
 
-            if (!categoryExists)
+            if (category == null)
                 throw new Exception("Category not found");
 
-            // Create product entity
             var product = new Product
             {
                 Id = Guid.NewGuid(),
@@ -59,11 +72,9 @@ namespace ECommerce.Infrastructure.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            // Save to database
             _context.Products.Add(product);
             await _context.SaveChangesAsync();
 
-            // Return response DTO
             return new ProductResponseDto
             {
                 Id = product.Id,
@@ -72,9 +83,11 @@ namespace ECommerce.Infrastructure.Services
                 Price = product.Price,
                 Stock = product.Stock,
                 ImageUrl = product.ImageUrl,
-                CategoryId = product.CategoryId
+                CategoryId = product.CategoryId,
+                CategoryName = category.Name
             };
         }
+
 
     }
 }

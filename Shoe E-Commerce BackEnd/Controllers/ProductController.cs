@@ -1,7 +1,9 @@
-﻿using ECommerce.Application.DTO.Product;
+﻿using ECommerce.Application.DTO.Common;
+using ECommerce.Application.DTO.Product;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ECommerce.API.Controllers
@@ -17,21 +19,22 @@ namespace ECommerce.API.Controllers
             _productService = productService;
         }
 
-        [HttpGet("get-all")]
-        public async Task<IActionResult> GetAllProducts()
+        [HttpGet]
+        public async Task<IActionResult> GetAllProducts(
+     [FromQuery] PaginationRequestDto pagination)
         {
-            var products = await _productService.GetAllProductsAsync();
+            var result = await _productService.GetAllProductsAsync(pagination);
 
             return Ok(
-                ApiResponse<List<ProductResponseDto>>
+                ApiResponse<PaginatedResponseDto<ProductResponseDto>>
                     .SuccessResponse(
                         SuccessMessages.ProductsFetchedSuccessfully,
-                        products
+                        result
                     )
             );
-
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto dto)
         {

@@ -12,6 +12,9 @@ namespace ECommerce.Application.Interface
     {
         Task<OrderResponseDto> CreateOrderAsync(Guid userId);
         Task<List<OrderResponseDto>> GetUserOrdersAsync(Guid userId);
+        Task<OrderResponseDto> GetOrderByIdAsync(Guid userId, Guid orderId);
+        Task<string> CancelOrderAsync(Guid userId, Guid orderId);
+
 
     }
 }

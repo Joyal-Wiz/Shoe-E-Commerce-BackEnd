@@ -52,6 +52,40 @@ namespace ECommerce.API.Controllers
                     .SuccessResponse("Orders fetched successfully", result)
             );
         }
+        [Authorize(Roles = "User")]
+        [HttpGet("{orderId}")]
+        public async Task<IActionResult> GetOrderById(Guid orderId)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return Unauthorized();
+
+            var result = await _orderService
+                .GetOrderByIdAsync(Guid.Parse(userId), orderId);
+
+            return Ok(
+                ApiResponse<OrderResponseDto>
+                    .SuccessResponse("Order fetched successfully", result)
+            );
+        }
+        [Authorize(Roles = "User")]
+        [HttpPut("{orderId}/cancel")]
+        public async Task<IActionResult> CancelOrder(Guid orderId)
+        {
+            var userId = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
+
+            if (userId == null)
+                return Unauthorized();
+
+            var result = await _orderService
+                .CancelOrderAsync(Guid.Parse(userId), orderId);
+
+            return Ok(
+                ApiResponse<string>
+                    .SuccessResponse(result, result)
+            );
+        }
 
     }
 }

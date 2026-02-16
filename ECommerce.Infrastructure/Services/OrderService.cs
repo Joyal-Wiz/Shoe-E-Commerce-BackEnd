@@ -120,6 +120,58 @@ namespace ECommerce.Infrastructure.Services
                 }).ToList()
             }).ToList();
         }
+        public async Task<OrderResponseDto> GetOrderByIdAsync(Guid userId, Guid orderId)
+        {
+            var order = await _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
+
+            if (order == null)
+                throw new NotFoundException("Order not found");
+
+            return new OrderResponseDto
+            {
+                OrderId = order.Id,
+                TotalAmount = order.TotalAmount,
+                Status = order.Status.ToString(),
+                CreatedAt = order.CreatedAt,
+                Items = order.OrderItems.Select(oi => new OrderItemResponseDto
+                {
+                    ProductId = oi.ProductId,
+                    ProductName = oi.Product.Name,
+                    Quantity = oi.Quantity,
+                    Price = oi.Price
+                }).ToList()
+            };
+        }
+        public async Task<string> CancelOrderAsync(Guid userId, Guid orderId)
+        {
+            using var transaction = await _context.Database.BeginTransactionAsync();
+
+            var order = await _context.Orders
+                .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Product)
+                .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
+
+            if (order == null)
+                throw new NotFoundException("Order not found");
+
+            if (order.Status != OrderStatus.Pending)
+                throw new BadRequestException("Only pending orders can be cancelled");
+
+            foreach (var item in order.OrderItems)
+            {
+                item.Product.Stock += item.Quantity;
+            }
+
+            order.Status = OrderStatus.Cancelled;
+
+            await _context.SaveChangesAsync();
+            await transaction.CommitAsync();
+
+            return "Order cancelled successfully";
+        }
 
     }
 }

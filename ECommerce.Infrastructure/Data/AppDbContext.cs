@@ -18,6 +18,9 @@ namespace ECommerce.Infrastructure.Data
         public DbSet<WishlistItem> WishlistItems { get; set; }
         public DbSet<Cart> Carts { get; set; }
         public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderItem> OrderItems { get; set; }
+
 
 
 
@@ -78,7 +81,32 @@ namespace ECommerce.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(ci => ci.ProductId);
 
+            //order
+            modelBuilder.Entity<Order>()
+                .HasOne(o => o.User)
+                .WithMany()
+                .HasForeignKey(o => o.UserId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Order)
+                .WithMany(o => o.OrderItems)
+                .HasForeignKey(oi => oi.OrderId);
+
+            modelBuilder.Entity<OrderItem>()
+                .HasOne(oi => oi.Product)
+                .WithMany()
+                .HasForeignKey(oi => oi.ProductId);
+            modelBuilder.Entity<Order>()
+                .Property(o => o.TotalAmount)
+                .HasPrecision(18, 2);
+
+            modelBuilder.Entity<OrderItem>()
+                .Property(oi => oi.Price)
+                .HasPrecision(18, 2);
+
+
         }
+
 
     }
 }

@@ -88,6 +88,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category not found.
+        /// </summary>
+        public static string Categorynotfound {
+            get {
+                return ResourceManager.GetString("Categorynotfound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email already exists.
         /// </summary>
         public static string EmailExists {
@@ -111,6 +120,24 @@ namespace ECommerce.Application.Resources {
         public static string InvalidUsername {
             get {
                 return ResourceManager.GetString("InvalidUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Already In Wishlist.
+        /// </summary>
+        public static string Productalreadyinwishlist {
+            get {
+                return ResourceManager.GetString("Productalreadyinwishlist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product not found.
+        /// </summary>
+        public static string Productnotfound {
+            get {
+                return ResourceManager.GetString("Productnotfound", resourceCulture);
             }
         }
         

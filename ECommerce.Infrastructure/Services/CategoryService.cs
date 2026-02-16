@@ -18,14 +18,14 @@ namespace ECommerce.Infrastructure.Services
 
         public async Task<CategoryResponseDto> CreateCategoryAsync(CreateCategoryDto dto)
         {
-            // 1️⃣ Check if category already exists
+            // Check if category already exists
             var exists = await _context.Categories
                 .AnyAsync(c => c.Name.ToLower() == dto.Name.ToLower());
 
             if (exists)
                 throw new AlreadyExistsException("Category already exists");
 
-            // 2️⃣ Create entity
+            // Create entity
             var category = new Category
             {
                 Id = Guid.NewGuid(),
@@ -34,11 +34,11 @@ namespace ECommerce.Infrastructure.Services
                 CreatedAt = DateTime.UtcNow
             };
 
-            // 3️⃣ Save
+            // Save
             _context.Categories.Add(category);
             await _context.SaveChangesAsync();
 
-            // 4️⃣ Return DTO
+            // Return DTO
             return new CategoryResponseDto
             {
                 Id = category.Id,
@@ -46,5 +46,20 @@ namespace ECommerce.Infrastructure.Services
                 Description = category.Description
             };
         }
+        public async Task<List<CategoryResponseDto>> GetAllCategoriesAsync()
+        {
+            var categories = await _context.Categories
+                .AsNoTracking()
+                .Select(c => new CategoryResponseDto
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description
+                })
+                .ToListAsync();
+
+            return categories;
+        }
+
     }
 }

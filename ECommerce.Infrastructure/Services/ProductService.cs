@@ -2,6 +2,7 @@
 using ECommerce.Application.DTO.Product;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -59,7 +60,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.Id == dto.CategoryId);
 
             if (category == null)
-                throw new Exception("Category not found");
+                throw new Exception(ErrorMessages.Categorynotfound);
 
             var product = new Product
             {
@@ -96,7 +97,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
-                throw new NotFoundException("Product not found");
+                throw new NotFoundException(ErrorMessages.Productnotfound);
 
             return new ProductResponseDto
             {
@@ -117,7 +118,7 @@ namespace ECommerce.Infrastructure.Services
                 .AnyAsync(c => c.Id == categoryId);
 
             if (!categoryExists)
-                throw new NotFoundException("Category not found");
+                throw new NotFoundException(ErrorMessages.Categorynotfound);
 
             var query = _context.Products
                 .Include(p => p.Category)
@@ -152,6 +153,48 @@ namespace ECommerce.Infrastructure.Services
                 PageSize = pagination.PageSize
             };
         }
+
+        public async Task<PaginatedResponseDto<ProductResponseDto>> SearchProductsAsync(
+            string query,
+            PaginationRequestDto pagination)
+        {
+            if (string.IsNullOrWhiteSpace(query))
+                throw new BadRequestException("Search query is required");
+
+            var searchQuery = _context.Products
+                .Include(p => p.Category)
+                .Where(p =>
+                    p.Name.ToLower().Contains(query.ToLower()) ||
+                    p.Description.ToLower().Contains(query.ToLower()))
+                .AsNoTracking();
+
+            var totalCount = await searchQuery.CountAsync();
+
+            var items = await searchQuery
+                .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+                .Take(pagination.PageSize)
+                .Select(p => new ProductResponseDto
+                {
+                    Id = p.Id,
+                    Name = p.Name,
+                    Description = p.Description,
+                    Price = p.Price,
+                    Stock = p.Stock,
+                    ImageUrl = p.ImageUrl,
+                    CategoryId = p.CategoryId,
+                    CategoryName = p.Category.Name
+                })
+                .ToListAsync();
+
+            return new PaginatedResponseDto<ProductResponseDto>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pagination.PageNumber,
+                PageSize = pagination.PageSize
+            };
+        }
+
 
 
 

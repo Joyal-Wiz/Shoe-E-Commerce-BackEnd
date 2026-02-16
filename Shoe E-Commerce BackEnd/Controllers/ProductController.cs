@@ -58,8 +58,8 @@ namespace ECommerce.API.Controllers
 
         [HttpGet("category/{categoryId}")]
         public async Task<IActionResult> GetProductsByCategory(
-    Guid categoryId,
-    [FromQuery] PaginationRequestDto pagination)
+            Guid categoryId,
+                 [FromQuery] PaginationRequestDto pagination)
         {
             var result = await _productService
                 .GetProductsByCategoryAsync(categoryId, pagination);
@@ -70,6 +70,20 @@ namespace ECommerce.API.Controllers
                         SuccessMessages.ProductsFetchedSuccessfully,
                         result
                     )
+            );
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchProducts(
+            [FromQuery] string query,
+            [FromQuery] PaginationRequestDto pagination)
+        {
+            var result = await _productService
+                .SearchProductsAsync(query, pagination);
+
+            return Ok(
+                ApiResponse<PaginatedResponseDto<ProductResponseDto>>
+                    .SuccessResponse("Search results fetched successfully", result)
             );
         }
 

@@ -19,15 +19,6 @@ namespace ECommerce.API.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
-        public IActionResult Login(LoginDto loginDto)
-        {
-            var result = _authService.Login(loginDto);
-
-            return Ok(ApiResponse<LoginResponseDto>
-                .SuccessResponse(SuccessMessages.Login, result));
-        }
-
         [Authorize(Roles = "User")]
         [HttpGet("me")]
         public IActionResult Me()
@@ -42,6 +33,16 @@ namespace ECommerce.API.Controllers
             return Ok(ApiResponse<object>
                 .SuccessResponse(SuccessMessages.UserDetailsFetched, userData));
         }
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginDto loginDto)
+        {
+            var result = _authService.Login(loginDto);
+
+            return Ok(ApiResponse<LoginResponseDto>
+                .SuccessResponse(SuccessMessages.Login, result));
+        }
+
 
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(SignUpDto dto)

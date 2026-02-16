@@ -129,6 +129,10 @@
     <value>Invalid admin username</value>
     <comment>Shown when admin username does not exist</comment>
   </data>
+  <data name="Categorynotfound" xml:space="preserve">
+    <value>Category not found</value>
+    <comment>when the category is not founded</comment>
+  </data>
   <data name="EmailExists" xml:space="preserve">
     <value>Email already exists</value>
     <comment>Shown during signup if email already exists</comment>
@@ -140,6 +144,14 @@
   <data name="InvalidUsername" xml:space="preserve">
     <value>Invalid username</value>
     <comment>Shown when user enters a username that does not exist</comment>
+  </data>
+  <data name="Productalreadyinwishlist" xml:space="preserve">
+    <value>Product Already In Wishlist</value>
+    <comment>when the product is already in the wish list </comment>
+  </data>
+  <data name="Productnotfound" xml:space="preserve">
+    <value>Product not found</value>
+    <comment>when the product is not founded</comment>
   </data>
   <data name="RefreshTokenExpired" xml:space="preserve">
     <value>Refresh token expired</value>

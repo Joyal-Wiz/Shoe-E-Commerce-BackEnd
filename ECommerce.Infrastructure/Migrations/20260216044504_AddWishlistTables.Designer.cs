@@ -4,6 +4,7 @@ using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ECommerce.Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260216044504_AddWishlistTables")]
+    partial class AddWishlistTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,50 +24,6 @@ namespace ECommerce.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ECommerce.Domain.Entities.Cart", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
-
-                    b.ToTable("Carts");
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Entities.CartItem", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("CartId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
-
-                    b.Property<Guid>("ProductId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CartId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("CartItems");
-                });
 
             modelBuilder.Entity("ECommerce.Domain.Entities.Category", b =>
                 {
@@ -177,12 +136,12 @@ namespace ECommerce.Infrastructure.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("918744c0-8fdf-4b03-83ff-6ca4f05d5026"),
-                            CreatedAt = new DateTime(2026, 2, 16, 5, 24, 20, 179, DateTimeKind.Utc).AddTicks(3854),
+                            Id = new Guid("45301f0f-6bbf-46ac-9c70-8ee6dac873e3"),
+                            CreatedAt = new DateTime(2026, 2, 16, 4, 45, 4, 359, DateTimeKind.Utc).AddTicks(6979),
                             Email = "admin@ecommerce.com",
                             IsActive = true,
                             Name = "Admin",
-                            PasswordHash = "AQAAAAIAAYagAAAAEGjds9rEyKcbmnZmv1eDO/YdYKWFp2kioc/rJvFrjRoApqE5O8znLs5J9PcuGAY9UQ==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIDfo9/RjOF4Dj8x5KZPzsVny3wCK21VUBRv8pSdEt6iBBitOYDuk3NFgT124RUR/g==",
                             PhoneNo = "9999999999",
                             Role = 2,
                             Username = "admin"
@@ -230,36 +189,6 @@ namespace ECommerce.Infrastructure.Migrations
                     b.ToTable("WishlistItems");
                 });
 
-            modelBuilder.Entity("ECommerce.Domain.Entities.Cart", b =>
-                {
-                    b.HasOne("ECommerce.Domain.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("ECommerce.Domain.Entities.Cart", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Entities.CartItem", b =>
-                {
-                    b.HasOne("ECommerce.Domain.Entities.Cart", "Cart")
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("ECommerce.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Cart");
-
-                    b.Navigation("Product");
-                });
-
             modelBuilder.Entity("ECommerce.Domain.Entities.Product", b =>
                 {
                     b.HasOne("ECommerce.Domain.Entities.Category", "Category")
@@ -299,11 +228,6 @@ namespace ECommerce.Infrastructure.Migrations
                     b.Navigation("Product");
 
                     b.Navigation("Wishlist");
-                });
-
-            modelBuilder.Entity("ECommerce.Domain.Entities.Cart", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 
             modelBuilder.Entity("ECommerce.Domain.Entities.Category", b =>

@@ -79,6 +79,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Added Successfully.
+        /// </summary>
+        public static string ProductaddedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProductaddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product created successfully..
         /// </summary>
         public static string ProductCreatedSuccessfully {

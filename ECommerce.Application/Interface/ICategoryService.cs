@@ -6,5 +6,7 @@ namespace ECommerce.Application.Interface
     public interface ICategoryService
     {
         Task<CategoryResponseDto> CreateCategoryAsync(CreateCategoryDto dto);
+        Task<List<CategoryResponseDto>> GetAllCategoriesAsync();
+
     }
 }

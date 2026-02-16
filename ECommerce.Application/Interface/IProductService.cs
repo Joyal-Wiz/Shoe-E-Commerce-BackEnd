@@ -22,5 +22,9 @@ namespace ECommerce.Application.Interface
         // Create
         Task<ProductResponseDto>
             CreateProductAsync(CreateProductDto dto);
+        //search
+        Task<PaginatedResponseDto<ProductResponseDto>>
+    SearchProductsAsync(string query, PaginationRequestDto pagination);
+
     }
 }

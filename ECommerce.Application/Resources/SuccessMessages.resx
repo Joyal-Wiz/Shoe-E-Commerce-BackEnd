@@ -125,6 +125,10 @@
     <value>Login successful</value>
     <comment>Displayed after successful user login</comment>
   </data>
+  <data name="ProductaddedSuccessfully" xml:space="preserve">
+    <value>Product Added Successfully</value>
+    <comment>if the product is sucessfully added in cart or wishlist </comment>
+  </data>
   <data name="ProductCreatedSuccessfully" xml:space="preserve">
     <value>Product created successfully.</value>
     <comment>Returned when a product is created successfully.</comment>

@@ -1,3 +1,4 @@
+using ECommerce.API.Extensions;
 using ECommerce.API.Middleware;
 using ECommerce.Application.Interface;
 using ECommerce.Infrastructure.Data;
@@ -79,22 +80,16 @@ builder.Services.AddScoped<PasswordService>();
 
 var jwtSettings = builder.Configuration.GetSection("JwtSettings");
 
-builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-    .AddJwtBearer(options =>
-    {
-        options.TokenValidationParameters = new TokenValidationParameters
-        {
-            ValidateIssuer = true,
-            ValidateAudience = true,
-            ValidateLifetime = true,
-            ValidateIssuerSigningKey = true,
-            ValidIssuer = jwtSettings["Issuer"],
-            ValidAudience = jwtSettings["Audience"],
-            IssuerSigningKey = new SymmetricSecurityKey(
-                Encoding.UTF8.GetBytes(jwtSettings["SecretKey"]!)
-            )
-        };
-    });
+
+var jwtKey = jwtSettings["SecretKey"];
+var jwtIssuer = jwtSettings["Issuer"];
+var jwtAudience = jwtSettings["Audience"];
+
+if (string.IsNullOrEmpty(jwtKey))
+    throw new Exception("JWT SecretKey is missing in configuration.");
+
+builder.Services.AddJwtAuthentication(builder.Configuration);
+
 
 
 var app = builder.Build();

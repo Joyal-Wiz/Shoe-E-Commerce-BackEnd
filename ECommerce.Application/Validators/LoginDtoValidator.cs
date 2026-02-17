@@ -4,9 +4,9 @@ using FluentValidation;
 
 namespace ECommerce.Application.Validators
 {
-    public class AdminLoginValidator : AbstractValidator<AdminLoginDto>
+    public class LoginDtoValidator : AbstractValidator<LoginDto>
     {
-        public AdminLoginValidator()
+        public LoginDtoValidator()
         {
             RuleFor(x => x.Username)
                 .NotEmpty().WithMessage(ValidationMessages.UsernameRequired)
@@ -14,7 +14,6 @@ namespace ECommerce.Application.Validators
 
             RuleFor(x => x.Password)
                 .NotEmpty().WithMessage(ValidationMessages.PasswordRequired);
-                
         }
     }
 }

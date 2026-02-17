@@ -20,7 +20,7 @@ namespace ECommerce.API.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("me")]
+        [HttpGet("Me")]
         public IActionResult Me()
         {
             var userData = new
@@ -34,14 +34,14 @@ namespace ECommerce.API.Controllers
                 .SuccessResponse(SuccessMessages.UserDetailsFetched, userData));
         }
 
-        [HttpPost("login")]
-        public IActionResult Login(LoginDto loginDto)
-        {
-            var result = _authService.Login(loginDto);
+        //[HttpPost("login")]
+        //public IActionResult Login(LoginDto loginDto)
+        //{
+        //    var result = _authService.Login(loginDto);
 
-            return Ok(ApiResponse<LoginResponseDto>
-                .SuccessResponse(SuccessMessages.Login, result));
-        }
+        //    return Ok(ApiResponse<LoginResponseDto>
+        //        .SuccessResponse(SuccessMessages.Login, result));
+        //}
 
 
         [HttpPost("signup")]

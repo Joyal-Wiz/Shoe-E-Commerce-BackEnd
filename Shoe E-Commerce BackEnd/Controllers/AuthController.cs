@@ -15,11 +15,22 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
             _authService = authService;
         }
 
+
+        [HttpPost("login")]
+        public IActionResult Login(LoginDto dto)
+        {
+            var response = _authService.Login(dto);
+            return Ok(response);
+        }
+
+
         [HttpPost("refresh")]
         public IActionResult Refresh(RefreshTokenDto dto)
         {
             var response = _authService.RefreshToken(dto);
             return Ok(response);
         }
+
+
     }
 }

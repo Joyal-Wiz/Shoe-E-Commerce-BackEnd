@@ -25,7 +25,7 @@ namespace ECommerce.Infrastructure.Services
             _jwtService = jwtService;
         }
 
-        // USER LOGIN 
+        // LOGIN for both USER and ADMIN
         public LoginResponseDto Login(LoginDto loginDto)
         {
             var user = _context.Users
@@ -61,6 +61,7 @@ namespace ECommerce.Infrastructure.Services
         }
 
 
+
         // USER SIGNUP
         public async Task SignupAsync(SignUpDto dto)
         {
@@ -87,41 +88,6 @@ namespace ECommerce.Infrastructure.Services
             await _context.SaveChangesAsync();
         }
 
-        // ADMIN LOGIN
-        public LoginResponseDto AdminLogin(AdminLoginDto dto)
-        {
-            var admin = _context.Users
-                .FirstOrDefault(x => x.Username == dto.Username
-                                  && x.Role == UserRole.Admin);
-
-            if (admin == null)
-                throw new UnauthorizedException(ErrorMessages.AdminInvalidUsername);
-
-            if (!admin.IsActive)
-                throw new UnauthorizedException(ErrorMessages.AdminInactive);
-
-            var isPasswordValid = _passwordService.VerifyPassword(
-                admin.PasswordHash,
-                dto.Password
-            );
-
-            if (!isPasswordValid)
-                throw new UnauthorizedException(ErrorMessages.AdminInvalidPassword);
-
-            var token = _jwtService.GenerateToken(admin);
-            var refreshToken = _jwtService.GenerateRefreshToken();
-
-            admin.RefreshToken = refreshToken;
-            admin.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
-
-            _context.SaveChanges();
-
-            return new LoginResponseDto
-            {
-                Token = token,
-                RefreshToken = refreshToken
-            };
-        }
 
         // REFRESH TOKEN
         public LoginResponseDto RefreshToken(RefreshTokenDto dto)

@@ -17,13 +17,6 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
             _authService = authService;
         }
 
-        [HttpPost("login")]
-        public IActionResult Login(AdminLoginDto dto)
-        {
-            var response = _authService.AdminLogin(dto);
 
-            return Ok(ApiResponse<LoginResponseDto>
-                .SuccessResponse(SuccessMessages.AdminLogin, response));
-        }
     }
 }

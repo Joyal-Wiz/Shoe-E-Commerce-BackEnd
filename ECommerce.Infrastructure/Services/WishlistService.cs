@@ -25,7 +25,7 @@ namespace ECommerce.Infrastructure.Services
                 .AnyAsync(p => p.Id == productId);
 
             if (!productExists)
-                throw new NotFoundException(ErrorMessages.Productnotfound);
+                throw new NotFoundException(ErrorMessages.notfound);
 
             // Get or create wishlist
             var wishlist = await _context.Wishlists
@@ -49,7 +49,7 @@ namespace ECommerce.Infrastructure.Services
                 .Any(wi => wi.ProductId == productId);
 
             if (alreadyExists)
-                throw new BadRequestException(ErrorMessages.Productalreadyinwishlist);
+                throw new BadRequestException(ErrorMessages.alreadyexists);
 
             // Add item
             var wishlistItem = new WishlistItem
@@ -95,13 +95,13 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(w => w.UserId == userId);
 
             if (wishlist == null)
-                throw new NotFoundException("Wishlist not found");
+                throw new NotFoundException(ErrorMessages.notfound);
 
             var item = wishlist.WishlistItems
                 .FirstOrDefault(wi => wi.Id == wishlistItemId);
 
             if (item == null)
-                throw new NotFoundException("Wishlist item not found");
+                throw new NotFoundException(ErrorMessages.itemnotfound);
 
             _context.WishlistItems.Remove(item);
 

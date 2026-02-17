@@ -28,7 +28,7 @@ namespace ECommerce.API.Controllers
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
                     .SuccessResponse(
-                        SuccessMessages.ProductsFetchedSuccessfully,
+                        SuccessMessages.FetchedSuccessfully,
                         result
                     )
             );
@@ -41,7 +41,7 @@ namespace ECommerce.API.Controllers
             return Ok(
                 ApiResponse<ProductResponseDto>
                     .SuccessResponse(
-                        SuccessMessages.ProductsFetchedSuccessfully,
+                        SuccessMessages.FetchedSuccessfully,
                         result
                     )
             );
@@ -67,7 +67,7 @@ namespace ECommerce.API.Controllers
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
                     .SuccessResponse(
-                        SuccessMessages.ProductsFetchedSuccessfully,
+                        SuccessMessages.FetchedSuccessfully,
                         result
                     )
             );
@@ -83,7 +83,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
-                    .SuccessResponse("Search results fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.SearchSuccess, result)
             );
         }
 

@@ -88,6 +88,24 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item Is Already Exist .
+        /// </summary>
+        public static string alreadyexists {
+            get {
+                return ResourceManager.GetString("alreadyexists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancelled Sucessfully .
+        /// </summary>
+        public static string cancelledsucess {
+            get {
+                return ResourceManager.GetString("cancelledsucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category not found.
         /// </summary>
         public static string Categorynotfound {
@@ -124,20 +142,47 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product Already In Wishlist.
+        ///   Looks up a localized string similar to The Item Is empty.
         /// </summary>
-        public static string Productalreadyinwishlist {
+        public static string isempty {
             get {
-                return ResourceManager.GetString("Productalreadyinwishlist", resourceCulture);
+                return ResourceManager.GetString("isempty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product not found.
+        ///   Looks up a localized string similar to Item is Not Found.
         /// </summary>
-        public static string Productnotfound {
+        public static string itemnotfound {
             get {
-                return ResourceManager.GetString("Productnotfound", resourceCulture);
+                return ResourceManager.GetString("itemnotfound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not Found .
+        /// </summary>
+        public static string notfound {
+            get {
+                return ResourceManager.GetString("notfound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Only pending orders can be cancelled.
+        /// </summary>
+        public static string pendingorderscancel {
+            get {
+                return ResourceManager.GetString("pendingorderscancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search query is required.
+        /// </summary>
+        public static string queryisrequired {
+            get {
+                return ResourceManager.GetString("queryisrequired", resourceCulture);
             }
         }
         

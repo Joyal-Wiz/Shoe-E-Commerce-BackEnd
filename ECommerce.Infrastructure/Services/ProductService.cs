@@ -97,7 +97,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
-                throw new NotFoundException(ErrorMessages.Productnotfound);
+                throw new NotFoundException(ErrorMessages.notfound);
 
             return new ProductResponseDto
             {
@@ -159,7 +159,7 @@ namespace ECommerce.Infrastructure.Services
             PaginationRequestDto pagination)
         {
             if (string.IsNullOrWhiteSpace(query))
-                throw new BadRequestException("Search query is required");
+                throw new BadRequestException(ErrorMessages.queryisrequired);
 
             var searchQuery = _context.Products
                 .Include(p => p.Category)

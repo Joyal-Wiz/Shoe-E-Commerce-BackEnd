@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.DTO.Category;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Domain.Entities;
 using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -23,7 +24,7 @@ namespace ECommerce.Infrastructure.Services
                 .AnyAsync(c => c.Name.ToLower() == dto.Name.ToLower());
 
             if (exists)
-                throw new AlreadyExistsException("Category already exists");
+                throw new AlreadyExistsException(ErrorMessages.alreadyexists);
 
             // Create entity
             var category = new Category

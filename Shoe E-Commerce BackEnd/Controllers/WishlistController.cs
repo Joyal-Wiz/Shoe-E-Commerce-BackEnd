@@ -33,7 +33,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<WishlistItemResponseDto>>
-                    .SuccessResponse("Wishlist fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
             );
         }
 
@@ -52,7 +52,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.ProductaddedSuccessfully, null)
+                    .SuccessResponse(SuccessMessages.addedSuccessfully, null)
             );
         }
 
@@ -71,7 +71,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse("Wishlist item deleted successfully", null)
+                    .SuccessResponse(SuccessMessages.deletedsuccessfully, null)
             );
         }
 

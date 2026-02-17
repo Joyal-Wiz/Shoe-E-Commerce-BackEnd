@@ -1,6 +1,7 @@
 ﻿using ECommerce.Application.DTO.Order;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Domain.Entities;
 using ECommerce.Domain.Enums;
 using ECommerce.Infrastructure.Data;
@@ -28,7 +29,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null || !cart.CartItems.Any())
-                throw new BadRequestException("Cart is empty");
+                throw new BadRequestException(ErrorMessages.isempty);
 
             // Create Order
             var order = new Order
@@ -128,7 +129,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
 
             if (order == null)
-                throw new NotFoundException("Order not found");
+                throw new NotFoundException(ErrorMessages.notfound);
 
             return new OrderResponseDto
             {
@@ -155,10 +156,10 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
 
             if (order == null)
-                throw new NotFoundException("Order not found");
+                throw new NotFoundException(ErrorMessages.notfound);
 
             if (order.Status != OrderStatus.Pending)
-                throw new BadRequestException("Only pending orders can be cancelled");
+                throw new BadRequestException(ErrorMessages.pendingorderscancel);
 
             foreach (var item in order.OrderItems)
             {
@@ -170,7 +171,7 @@ namespace ECommerce.Infrastructure.Services
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            return "Order cancelled successfully";
+            return ErrorMessages.cancelledsucess;
         }
 
     }

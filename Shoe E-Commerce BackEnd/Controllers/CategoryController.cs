@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.DTO.Category;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,7 +24,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<CategoryResponseDto>>
-                    .SuccessResponse("Categories fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
             );
         }
 

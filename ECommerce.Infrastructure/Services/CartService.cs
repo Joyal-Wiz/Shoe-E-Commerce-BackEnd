@@ -24,7 +24,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
-                throw new NotFoundException(ErrorMessages.Productnotfound);
+                throw new NotFoundException(ErrorMessages.notfound);
 
             //  Get or create cart
             var cart = await _context.Carts
@@ -99,13 +99,13 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)
-                throw new NotFoundException("Cart not found");
+                throw new NotFoundException(ErrorMessages.notfound);
 
             var cartItem = cart.CartItems
                 .FirstOrDefault(ci => ci.Id == cartItemId);
 
             if (cartItem == null)
-                throw new NotFoundException("Cart item not found");
+                throw new NotFoundException(ErrorMessages.itemnotfound);
 
             if (quantity <= 0)
             {
@@ -126,13 +126,13 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)
-                throw new NotFoundException("Cart not found");
+                throw new NotFoundException(ErrorMessages.notfound);
 
             var cartItem = cart.CartItems
                 .FirstOrDefault(ci => ci.Id == cartItemId);
 
             if (cartItem == null)
-                throw new NotFoundException("Cart item not found");
+                throw new NotFoundException(ErrorMessages.itemnotfound);
 
             _context.CartItems.Remove(cartItem);
 

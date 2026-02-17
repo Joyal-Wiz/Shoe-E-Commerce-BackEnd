@@ -61,11 +61,47 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Added Successfully.
+        /// </summary>
+        public static string addedSuccessfully {
+            get {
+                return ResourceManager.GetString("addedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Admin login successful.
         /// </summary>
         public static string AdminLogin {
             get {
                 return ResourceManager.GetString("AdminLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created Successfully..
+        /// </summary>
+        public static string CreatedSuccessfully {
+            get {
+                return ResourceManager.GetString("CreatedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Deleted Successfully.
+        /// </summary>
+        public static string deletedsuccessfully {
+            get {
+                return ResourceManager.GetString("deletedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Fetched Successfully.
+        /// </summary>
+        public static string FetchedSuccessfully {
+            get {
+                return ResourceManager.GetString("FetchedSuccessfully", resourceCulture);
             }
         }
         
@@ -79,29 +115,11 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Product Added Successfully.
+        ///   Looks up a localized string similar to Search results fetched successfully.
         /// </summary>
-        public static string ProductaddedSuccessfully {
+        public static string SearchSuccess {
             get {
-                return ResourceManager.GetString("ProductaddedSuccessfully", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Product created successfully..
-        /// </summary>
-        public static string ProductCreatedSuccessfully {
-            get {
-                return ResourceManager.GetString("ProductCreatedSuccessfully", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Products fetched successfully..
-        /// </summary>
-        public static string ProductsFetchedSuccessfully {
-            get {
-                return ResourceManager.GetString("ProductsFetchedSuccessfully", resourceCulture);
+                return ResourceManager.GetString("SearchSuccess", resourceCulture);
             }
         }
         
@@ -120,6 +138,15 @@ namespace ECommerce.Application.Resources {
         public static string TokenRefreshed {
             get {
                 return ResourceManager.GetString("TokenRefreshed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Updated Successfully.
+        /// </summary>
+        public static string updatedsuccessfully {
+            get {
+                return ResourceManager.GetString("updatedsuccessfully", resourceCulture);
             }
         }
         

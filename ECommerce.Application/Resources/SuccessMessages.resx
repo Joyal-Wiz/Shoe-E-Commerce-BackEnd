@@ -125,16 +125,16 @@
     <value>Login successful</value>
     <comment>Displayed after successful user login</comment>
   </data>
-  <data name="ProductaddedSuccessfully" xml:space="preserve">
-    <value>Product Added Successfully</value>
-    <comment>if the product is sucessfully added in cart or wishlist </comment>
+  <data name="addedSuccessfully" xml:space="preserve">
+    <value>Added Successfully</value>
+    <comment>if the Product,Cart, Wishlist,User is sucessfully added in cart or wishlist </comment>
   </data>
-  <data name="ProductCreatedSuccessfully" xml:space="preserve">
-    <value>Product created successfully.</value>
+  <data name="CreatedSuccessfully" xml:space="preserve">
+    <value>Created Successfully.</value>
     <comment>Returned when a product is created successfully.</comment>
   </data>
-  <data name="ProductsFetchedSuccessfully" xml:space="preserve">
-    <value>Products fetched successfully.</value>
+  <data name="FetchedSuccessfully" xml:space="preserve">
+    <value>Fetched Successfully</value>
     <comment>Returned when all products are retrieved successfully.</comment>
   </data>
   <data name="Signup" xml:space="preserve">
@@ -148,5 +148,17 @@
   <data name="UserDetailsFetched" xml:space="preserve">
     <value>User details fetched successfully</value>
     <comment>Displayed when user profile details are retrieved</comment>
+  </data>
+  <data name="updatedsuccessfully" xml:space="preserve">
+    <value>Updated Successfully</value>
+    <comment>to update user,product,cart,wishlist</comment>
+  </data>
+  <data name="deletedsuccessfully" xml:space="preserve">
+    <value>Deleted Successfully</value>
+    <comment>to show the deleted success message </comment>
+  </data>
+  <data name="SearchSuccess" xml:space="preserve">
+    <value>Search results fetched successfully</value>
+    <comment>to show the search success message </comment>
   </data>
 </root>

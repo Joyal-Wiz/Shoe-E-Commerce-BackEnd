@@ -1,5 +1,6 @@
 ﻿using ECommerce.Application.DTO.Order;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
 using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
@@ -33,7 +34,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<OrderResponseDto>
-                    .SuccessResponse("Order created successfully", result)
+                    .SuccessResponse(SuccessMessages.CreatedSuccessfully, result)
             );
         }
         [Authorize(Roles = "User")]
@@ -49,7 +50,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<OrderResponseDto>>
-                    .SuccessResponse("Orders fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
             );
         }
         [Authorize(Roles = "User")]
@@ -66,7 +67,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<OrderResponseDto>
-                    .SuccessResponse("Order fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
             );
         }
         [Authorize(Roles = "User")]

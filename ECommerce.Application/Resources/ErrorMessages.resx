@@ -129,6 +129,14 @@
     <value>Invalid admin username</value>
     <comment>Shown when admin username does not exist</comment>
   </data>
+  <data name="alreadyexists" xml:space="preserve">
+    <value>Item Is Already Exist </value>
+    <comment>when the item is in the catogory,cart and other </comment>
+  </data>
+  <data name="cancelledsucess" xml:space="preserve">
+    <value>Cancelled Sucessfully </value>
+    <comment>to show when the cancelation is sucessfull</comment>
+  </data>
   <data name="Categorynotfound" xml:space="preserve">
     <value>Category not found</value>
     <comment>when the category is not founded</comment>
@@ -145,13 +153,25 @@
     <value>Invalid username</value>
     <comment>Shown when user enters a username that does not exist</comment>
   </data>
-  <data name="Productalreadyinwishlist" xml:space="preserve">
-    <value>Product Already In Wishlist</value>
-    <comment>when the product is already in the wish list </comment>
+  <data name="isempty" xml:space="preserve">
+    <value>The Item Is empty</value>
+    <comment>to show when the cart, wishlist and other are empty</comment>
   </data>
-  <data name="Productnotfound" xml:space="preserve">
-    <value>Product not found</value>
-    <comment>when the product is not founded</comment>
+  <data name="itemnotfound" xml:space="preserve">
+    <value>Item is Not Found</value>
+    <comment>when the item in the whichlist,cart , other are not found</comment>
+  </data>
+  <data name="notfound" xml:space="preserve">
+    <value>Not Found </value>
+    <comment>when the things are not fond</comment>
+  </data>
+  <data name="pendingorderscancel" xml:space="preserve">
+    <value>Only pending orders can be cancelled</value>
+    <comment>to show when user try to cancel the approved orders </comment>
+  </data>
+  <data name="queryisrequired" xml:space="preserve">
+    <value>Search query is required</value>
+    <comment>if the search query is empty </comment>
   </data>
   <data name="RefreshTokenExpired" xml:space="preserve">
     <value>Refresh token expired</value>

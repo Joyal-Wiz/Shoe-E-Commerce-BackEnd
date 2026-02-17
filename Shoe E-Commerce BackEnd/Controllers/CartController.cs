@@ -33,7 +33,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<CartItemResponseDto>>
-                    .SuccessResponse("Cart fetched successfully", result)
+                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
             );
         }
 
@@ -52,7 +52,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.ProductaddedSuccessfully, null)
+                    .SuccessResponse(SuccessMessages.addedSuccessfully, null)
             );
         }
 
@@ -74,7 +74,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse("Cart item updated successfully", null)
+                    .SuccessResponse(SuccessMessages.updatedsuccessfully, null)
             );
         }
 
@@ -93,7 +93,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse("Cart item deleted successfully", null)
+                    .SuccessResponse(SuccessMessages.updatedsuccessfully, null)
             );
         }
 

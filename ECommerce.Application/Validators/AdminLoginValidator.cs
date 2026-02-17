@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.DTO.Auth;
+using ECommerce.Application.Resources;
 using FluentValidation;
 
 namespace ECommerce.Application.Validators
@@ -8,11 +9,11 @@ namespace ECommerce.Application.Validators
         public AdminLoginValidator()
         {
             RuleFor(x => x.Username)
-                .NotEmpty().WithMessage("Admin username is required")
-                .MinimumLength(4).WithMessage("Admin username must be at least 4 characters");
+                .NotEmpty().WithMessage(ValidationMessages.UsernameRequired)
+                .MinimumLength(4).WithMessage(ValidationMessages.UsernameMinLength);
 
             RuleFor(x => x.Password)
-                .NotEmpty().WithMessage("Admin password is required");
+                .NotEmpty().WithMessage(ValidationMessages.PasswordRequired);
                 
         }
     }

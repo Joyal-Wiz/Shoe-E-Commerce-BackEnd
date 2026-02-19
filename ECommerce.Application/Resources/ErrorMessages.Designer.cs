@@ -61,70 +61,79 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin account is inactive.
+        ///   Looks up a localized string similar to Cart Is Empty..
         /// </summary>
-        public static string AdminInactive {
+        public static string CartIsEmpty {
             get {
-                return ResourceManager.GetString("AdminInactive", resourceCulture);
+                return ResourceManager.GetString("CartIsEmpty", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid admin password.
+        ///   Looks up a localized string similar to  Cart item not found..
         /// </summary>
-        public static string AdminInvalidPassword {
+        public static string CartItemNotFound {
             get {
-                return ResourceManager.GetString("AdminInvalidPassword", resourceCulture);
+                return ResourceManager.GetString("CartItemNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid admin username.
+        ///   Looks up a localized string similar to Cart not found..
         /// </summary>
-        public static string AdminInvalidUsername {
+        public static string CartNotFound {
             get {
-                return ResourceManager.GetString("AdminInvalidUsername", resourceCulture);
+                return ResourceManager.GetString("CartNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item Is Already Exist .
+        ///   Looks up a localized string similar to  Category Already Exists..
         /// </summary>
-        public static string alreadyexists {
+        public static string CategoryAlreadyExists {
             get {
-                return ResourceManager.GetString("alreadyexists", resourceCulture);
+                return ResourceManager.GetString("CategoryAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancelled Sucessfully .
+        ///   Looks up a localized string similar to Category not found..
         /// </summary>
-        public static string cancelledsucess {
+        public static string CategoryNotFound {
             get {
-                return ResourceManager.GetString("cancelledsucess", resourceCulture);
+                return ResourceManager.GetString("CategoryNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category not found.
+        ///   Looks up a localized string similar to  Email Already Exists..
         /// </summary>
-        public static string Categorynotfound {
+        public static string EmailAlreadyExists {
             get {
-                return ResourceManager.GetString("Categorynotfound", resourceCulture);
+                return ResourceManager.GetString("EmailAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Email already exists.
+        ///   Looks up a localized string similar to Insufficient stock for the requested product..
         /// </summary>
-        public static string EmailExists {
+        public static string InsufficientProductStock {
             get {
-                return ResourceManager.GetString("EmailExists", resourceCulture);
+                return ResourceManager.GetString("InsufficientProductStock", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid password.
+        ///   Looks up a localized string similar to Invalid quantity. Quantity must be greater than zero..
+        /// </summary>
+        public static string InvalidCartItemQuantity {
+            get {
+                return ResourceManager.GetString("InvalidCartItemQuantity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid Password..
         /// </summary>
         public static string InvalidPassword {
             get {
@@ -133,7 +142,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid username.
+        ///   Looks up a localized string similar to Invalid username..
         /// </summary>
         public static string InvalidUsername {
             get {
@@ -142,52 +151,34 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The Item Is empty.
+        ///   Looks up a localized string similar to  Only pending orders can be cancelled..
         /// </summary>
-        public static string isempty {
+        public static string OrderCancellationNotAllowed {
             get {
-                return ResourceManager.GetString("isempty", resourceCulture);
+                return ResourceManager.GetString("OrderCancellationNotAllowed", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Item is Not Found.
+        ///   Looks up a localized string similar to Order not found..
         /// </summary>
-        public static string itemnotfound {
+        public static string OrderNotFound {
             get {
-                return ResourceManager.GetString("itemnotfound", resourceCulture);
+                return ResourceManager.GetString("OrderNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Not Found .
+        ///   Looks up a localized string similar to  Product Not Found..
         /// </summary>
-        public static string notfound {
+        public static string ProductNotFound {
             get {
-                return ResourceManager.GetString("notfound", resourceCulture);
+                return ResourceManager.GetString("ProductNotFound", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Only pending orders can be cancelled.
-        /// </summary>
-        public static string pendingorderscancel {
-            get {
-                return ResourceManager.GetString("pendingorderscancel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Search query is required.
-        /// </summary>
-        public static string queryisrequired {
-            get {
-                return ResourceManager.GetString("queryisrequired", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Refresh token expired.
+        ///   Looks up a localized string similar to Refresh Token Has Expired..
         /// </summary>
         public static string RefreshTokenExpired {
             get {
@@ -196,7 +187,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Invalid refresh token.
+        ///   Looks up a localized string similar to Invalid Refresh Token..
         /// </summary>
         public static string RefreshTokenInvalid {
             get {
@@ -205,7 +196,16 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An unexpected error occurred.
+        ///   Looks up a localized string similar to Search query is required..
+        /// </summary>
+        public static string SearchQueryRequired {
+            get {
+                return ResourceManager.GetString("SearchQueryRequired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An unexpected error occurred. Please try again later..
         /// </summary>
         public static string ServerError {
             get {
@@ -214,7 +214,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User account is inactive.
+        ///   Looks up a localized string similar to User Account Is Inactive..
         /// </summary>
         public static string UserInactive {
             get {
@@ -223,11 +223,38 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Username already exists.
+        ///   Looks up a localized string similar to  Username aAready Exists..
         /// </summary>
-        public static string UsernameExists {
+        public static string UsernameAlreadyExists {
             get {
-                return ResourceManager.GetString("UsernameExists", resourceCulture);
+                return ResourceManager.GetString("UsernameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item already exists in wishlist..
+        /// </summary>
+        public static string WishlistItemAlreadyExists {
+            get {
+                return ResourceManager.GetString("WishlistItemAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wishlist item not found..
+        /// </summary>
+        public static string WishlistItemNotFound {
+            get {
+                return ResourceManager.GetString("WishlistItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wishlist not found..
+        /// </summary>
+        public static string WishlistNotFound {
+            get {
+                return ResourceManager.GetString("WishlistNotFound", resourceCulture);
             }
         }
     }

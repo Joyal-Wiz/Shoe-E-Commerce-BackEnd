@@ -66,10 +66,10 @@ namespace ECommerce.Infrastructure.Services
         public async Task SignupAsync(SignUpDto dto)
         {
             if (await _context.Users.AnyAsync(x => x.Username == dto.Username))
-                throw new AlreadyExistsException(ErrorMessages.UsernameExists);
+                throw new AlreadyExistsException(ErrorMessages.UsernameAlreadyExists);
 
             if (await _context.Users.AnyAsync(x => x.Email == dto.Email))
-                throw new AlreadyExistsException(ErrorMessages.EmailExists);
+                throw new AlreadyExistsException(ErrorMessages.EmailAlreadyExists);
 
             var user = new User
             {

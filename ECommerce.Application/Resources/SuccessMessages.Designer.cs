@@ -61,101 +61,155 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Added Successfully.
+        ///   Looks up a localized string similar to Cart retrieved successfully..
         /// </summary>
-        public static string addedSuccessfully {
+        public static string CartFetchedSuccessfully {
             get {
-                return ResourceManager.GetString("addedSuccessfully", resourceCulture);
+                return ResourceManager.GetString("CartFetchedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Admin login successful.
+        ///   Looks up a localized string similar to Item added to cart successfully..
         /// </summary>
-        public static string AdminLogin {
+        public static string CartItemAddedSuccessfully {
             get {
-                return ResourceManager.GetString("AdminLogin", resourceCulture);
+                return ResourceManager.GetString("CartItemAddedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Created Successfully..
+        ///   Looks up a localized string similar to Cart item deleted successfully..
         /// </summary>
-        public static string CreatedSuccessfully {
+        public static string CartItemDeletedSuccessfully {
             get {
-                return ResourceManager.GetString("CreatedSuccessfully", resourceCulture);
+                return ResourceManager.GetString("CartItemDeletedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleted Successfully.
+        ///   Looks up a localized string similar to Cart item updated successfully..
         /// </summary>
-        public static string deletedsuccessfully {
+        public static string CartItemUpdatedSuccessfully {
             get {
-                return ResourceManager.GetString("deletedsuccessfully", resourceCulture);
+                return ResourceManager.GetString("CartItemUpdatedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Fetched Successfully.
+        ///   Looks up a localized string similar to Category created successfully..
         /// </summary>
-        public static string FetchedSuccessfully {
+        public static string CategoryCreatedSuccessfully {
             get {
-                return ResourceManager.GetString("FetchedSuccessfully", resourceCulture);
+                return ResourceManager.GetString("CategoryCreatedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Login successful.
+        ///   Looks up a localized string similar to Order cancelled successfully..
         /// </summary>
-        public static string Login {
+        public static string OrderCancelledSuccessfully {
             get {
-                return ResourceManager.GetString("Login", resourceCulture);
+                return ResourceManager.GetString("OrderCancelledSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search results fetched successfully.
+        ///   Looks up a localized string similar to Order created successfully..
         /// </summary>
-        public static string SearchSuccess {
+        public static string OrderCreatedSuccessfully {
             get {
-                return ResourceManager.GetString("SearchSuccess", resourceCulture);
+                return ResourceManager.GetString("OrderCreatedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User registered successfully.
+        ///   Looks up a localized string similar to Order retrieved successfully..
         /// </summary>
-        public static string Signup {
+        public static string OrderFetchedSuccessfully {
             get {
-                return ResourceManager.GetString("Signup", resourceCulture);
+                return ResourceManager.GetString("OrderFetchedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Token refreshed successfully.
+        ///   Looks up a localized string similar to  Orders retrieved successfully..
         /// </summary>
-        public static string TokenRefreshed {
+        public static string OrdersFetchedSuccessfully {
             get {
-                return ResourceManager.GetString("TokenRefreshed", resourceCulture);
+                return ResourceManager.GetString("OrdersFetchedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Updated Successfully.
+        ///   Looks up a localized string similar to Product created successfully..
         /// </summary>
-        public static string updatedsuccessfully {
+        public static string ProductCreatedSuccessfully {
             get {
-                return ResourceManager.GetString("updatedsuccessfully", resourceCulture);
+                return ResourceManager.GetString("ProductCreatedSuccessfully", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User details fetched successfully.
+        ///   Looks up a localized string similar to Product retrieved successfully..
         /// </summary>
-        public static string UserDetailsFetched {
+        public static string ProductFetchedSuccessfully {
             get {
-                return ResourceManager.GetString("UserDetailsFetched", resourceCulture);
+                return ResourceManager.GetString("ProductFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Products retrieved successfully..
+        /// </summary>
+        public static string ProductsFetchedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProductsFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User details retrieved successfully..
+        /// </summary>
+        public static string UserDetailsFetchedSuccessfully {
+            get {
+                return ResourceManager.GetString("UserDetailsFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User registered successfully..
+        /// </summary>
+        public static string UserRegisteredSuccessfully {
+            get {
+                return ResourceManager.GetString("UserRegisteredSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wishlist retrieved successfully..
+        /// </summary>
+        public static string WishlistFetchedSuccessfully {
+            get {
+                return ResourceManager.GetString("WishlistFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to  Item added to wishlist successfully..
+        /// </summary>
+        public static string WishlistItemAddedSuccessfully {
+            get {
+                return ResourceManager.GetString("WishlistItemAddedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wishlist item deleted successfully..
+        /// </summary>
+        public static string WishlistItemDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("WishlistItemDeletedSuccessfully", resourceCulture);
             }
         }
     }

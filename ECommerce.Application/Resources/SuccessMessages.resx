@@ -117,48 +117,72 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdminLogin" xml:space="preserve">
-    <value>Admin login successful</value>
-    <comment>Displayed after successful admin login</comment>
+  <data name="CartFetchedSuccessfully" xml:space="preserve">
+    <value>Cart retrieved successfully.</value>
+    <comment>Returned when the user's cart items are successfully fetched.</comment>
   </data>
-  <data name="Login" xml:space="preserve">
-    <value>Login successful</value>
-    <comment>Displayed after successful user login</comment>
+  <data name="CartItemAddedSuccessfully" xml:space="preserve">
+    <value>Item added to cart successfully.</value>
+    <comment> Returned when a product is successfully added to the cart.</comment>
   </data>
-  <data name="addedSuccessfully" xml:space="preserve">
-    <value>Added Successfully</value>
-    <comment>if the Product,Cart, Wishlist,User is sucessfully added in cart or wishlist </comment>
+  <data name="CartItemDeletedSuccessfully" xml:space="preserve">
+    <value>Cart item deleted successfully.</value>
+    <comment>Returned when a cart item is successfully removed.</comment>
   </data>
-  <data name="CreatedSuccessfully" xml:space="preserve">
-    <value>Created Successfully.</value>
-    <comment>Returned when a product is created successfully.</comment>
+  <data name="CartItemUpdatedSuccessfully" xml:space="preserve">
+    <value>Cart item updated successfully.</value>
+    <comment>Returned when the quantity of a cart item is successfully updated.</comment>
   </data>
-  <data name="FetchedSuccessfully" xml:space="preserve">
-    <value>Fetched Successfully</value>
-    <comment>Returned when all products are retrieved successfully.</comment>
+  <data name="CategoryCreatedSuccessfully" xml:space="preserve">
+    <value>Category created successfully.</value>
+    <comment>Returned when a new category is successfully created.</comment>
   </data>
-  <data name="Signup" xml:space="preserve">
-    <value>User registered successfully</value>
-    <comment>Displayed after successful user registration</comment>
+  <data name="OrderCancelledSuccessfully" xml:space="preserve">
+    <value>Order cancelled successfully.</value>
+    <comment> Returned when an order is successfully cancelled.</comment>
   </data>
-  <data name="TokenRefreshed" xml:space="preserve">
-    <value>Token refreshed successfully</value>
-    <comment>Displayed after access token is refreshed</comment>
+  <data name="OrderCreatedSuccessfully" xml:space="preserve">
+    <value>Order created successfully.</value>
+    <comment>Returned when a new order is successfully created.</comment>
   </data>
-  <data name="UserDetailsFetched" xml:space="preserve">
-    <value>User details fetched successfully</value>
-    <comment>Displayed when user profile details are retrieved</comment>
+  <data name="OrderFetchedSuccessfully" xml:space="preserve">
+    <value>Order retrieved successfully.</value>
+    <comment>Returned when a specific order is successfully fetched.</comment>
   </data>
-  <data name="updatedsuccessfully" xml:space="preserve">
-    <value>Updated Successfully</value>
-    <comment>to update user,product,cart,wishlist</comment>
+  <data name="OrdersFetchedSuccessfully" xml:space="preserve">
+    <value> Orders retrieved successfully.</value>
+    <comment>Returned when all orders for a user are successfully fetched.</comment>
   </data>
-  <data name="deletedsuccessfully" xml:space="preserve">
-    <value>Deleted Successfully</value>
-    <comment>to show the deleted success message </comment>
+  <data name="ProductCreatedSuccessfully" xml:space="preserve">
+    <value>Product created successfully.</value>
+    <comment>Returned when a new product is successfully created.</comment>
   </data>
-  <data name="SearchSuccess" xml:space="preserve">
-    <value>Search results fetched successfully</value>
-    <comment>to show the search success message </comment>
+  <data name="ProductFetchedSuccessfully" xml:space="preserve">
+    <value>Product retrieved successfully.</value>
+    <comment>Returned when a specific product is successfully fetched.</comment>
+  </data>
+  <data name="ProductsFetchedSuccessfully" xml:space="preserve">
+    <value> Products retrieved successfully.</value>
+    <comment>Returned when a list of products is successfully fetched.</comment>
+  </data>
+  <data name="UserDetailsFetchedSuccessfully" xml:space="preserve">
+    <value>User details retrieved successfully.</value>
+    <comment>Returned when the authenticated user's details are successfully fetched.</comment>
+  </data>
+  <data name="UserRegisteredSuccessfully" xml:space="preserve">
+    <value>User registered successfully.</value>
+    <comment>Returned when a new user account is successfully created.</comment>
+  </data>
+  <data name="WishlistFetchedSuccessfully" xml:space="preserve">
+    <value>Wishlist retrieved successfully.</value>
+    <comment>Returned when the user's wishlist items are successfully fetched.</comment>
+  </data>
+  <data name="WishlistItemAddedSuccessfully" xml:space="preserve">
+    <value> Item added to wishlist successfully.</value>
+    <comment>Returned when a product is successfully added to the wishlist.</comment>
+  </data>
+  <data name="WishlistItemDeletedSuccessfully" xml:space="preserve">
+    <value>Wishlist item deleted successfully.</value>
+    <comment>Returned when a wishlist item is successfully removed.</comment>
   </data>
 </root>

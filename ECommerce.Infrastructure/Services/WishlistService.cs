@@ -17,7 +17,6 @@ namespace ECommerce.Infrastructure.Services
             _context = context;
         }
 
-
         public async Task AddToWishlistAsync(Guid userId, Guid productId)
         {
             // Check product exists
@@ -25,7 +24,7 @@ namespace ECommerce.Infrastructure.Services
                 .AnyAsync(p => p.Id == productId);
 
             if (!productExists)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.ProductNotFound);
 
             // Get or create wishlist
             var wishlist = await _context.Wishlists
@@ -49,7 +48,7 @@ namespace ECommerce.Infrastructure.Services
                 .Any(wi => wi.ProductId == productId);
 
             if (alreadyExists)
-                throw new BadRequestException(ErrorMessages.alreadyexists);
+                throw new BadRequestException(ErrorMessages.WishlistItemAlreadyExists);
 
             // Add item
             var wishlistItem = new WishlistItem
@@ -63,7 +62,8 @@ namespace ECommerce.Infrastructure.Services
 
             await _context.SaveChangesAsync();
         }
-        //wishlist
+
+        // Get wishlist
         public async Task<List<WishlistItemResponseDto>> GetWishlistAsync(Guid userId)
         {
             var wishlist = await _context.Wishlists
@@ -77,17 +77,17 @@ namespace ECommerce.Infrastructure.Services
 
             var result = wishlist.WishlistItems.Select(wi => new WishlistItemResponseDto
             {
-                WishlistItemId = wi.Id, 
+                WishlistItemId = wi.Id,
                 ProductId = wi.ProductId,
                 ProductName = wi.Product.Name,
                 ImageUrl = wi.Product.ImageUrl,
                 Price = wi.Product.Price
             }).ToList();
 
-
             return result;
         }
-        //delete item in wishlist
+
+        // Delete item from wishlist
         public async Task DeleteWishlistItemAsync(Guid userId, Guid wishlistItemId)
         {
             var wishlist = await _context.Wishlists
@@ -95,18 +95,17 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(w => w.UserId == userId);
 
             if (wishlist == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.WishlistNotFound);
 
             var item = wishlist.WishlistItems
                 .FirstOrDefault(wi => wi.Id == wishlistItemId);
 
             if (item == null)
-                throw new NotFoundException(ErrorMessages.itemnotfound);
+                throw new NotFoundException(ErrorMessages.WishlistItemNotFound);
 
             _context.WishlistItems.Remove(item);
 
             await _context.SaveChangesAsync();
         }
-
     }
 }

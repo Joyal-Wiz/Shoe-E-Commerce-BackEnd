@@ -33,10 +33,9 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<CartItemResponseDto>>
-                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
+                    .SuccessResponse(SuccessMessages.CartFetchedSuccessfully, result)
             );
         }
-
 
         [Authorize(Roles = "User")]
         [HttpPost("{productId}")]
@@ -52,7 +51,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.addedSuccessfully, null)
+                    .SuccessResponse(SuccessMessages.CartItemAddedSuccessfully, null)
             );
         }
 
@@ -74,7 +73,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.updatedsuccessfully, null)
+                    .SuccessResponse(SuccessMessages.CartItemUpdatedSuccessfully, null)
             );
         }
 
@@ -93,10 +92,8 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.updatedsuccessfully, null)
+                    .SuccessResponse(SuccessMessages.CartItemDeletedSuccessfully, null)
             );
         }
-
-
     }
 }

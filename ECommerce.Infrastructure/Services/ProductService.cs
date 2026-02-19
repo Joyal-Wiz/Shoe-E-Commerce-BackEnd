@@ -19,7 +19,7 @@ namespace ECommerce.Infrastructure.Services
         }
 
         public async Task<PaginatedResponseDto<ProductResponseDto>>
-     GetAllProductsAsync(PaginationRequestDto pagination)
+            GetAllProductsAsync(PaginationRequestDto pagination)
         {
             var query = _context.Products
                 .Include(p => p.Category)
@@ -60,7 +60,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.Id == dto.CategoryId);
 
             if (category == null)
-                throw new Exception(ErrorMessages.Categorynotfound);
+                throw new NotFoundException(ErrorMessages.CategoryNotFound);
 
             var product = new Product
             {
@@ -89,6 +89,7 @@ namespace ECommerce.Infrastructure.Services
                 CategoryName = category.Name
             };
         }
+
         public async Task<ProductResponseDto> GetProductByIdAsync(Guid productId)
         {
             var product = await _context.Products
@@ -97,7 +98,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.ProductNotFound);
 
             return new ProductResponseDto
             {
@@ -111,20 +112,20 @@ namespace ECommerce.Infrastructure.Services
                 CategoryName = product.Category?.Name
             };
         }
+
         public async Task<PaginatedResponseDto<ProductResponseDto>>
-    GetProductsByCategoryAsync(Guid categoryId, PaginationRequestDto pagination)
+            GetProductsByCategoryAsync(Guid categoryId, PaginationRequestDto pagination)
         {
             var categoryExists = await _context.Categories
                 .AnyAsync(c => c.Id == categoryId);
 
             if (!categoryExists)
-                throw new NotFoundException(ErrorMessages.Categorynotfound);
+                throw new NotFoundException(ErrorMessages.CategoryNotFound);
 
             var query = _context.Products
                 .Include(p => p.Category)
                 .Where(p => p.CategoryId == categoryId)
-                .AsNoTracking()
-                .AsQueryable();
+                .AsNoTracking();
 
             var totalCount = await query.CountAsync();
 
@@ -159,7 +160,7 @@ namespace ECommerce.Infrastructure.Services
             PaginationRequestDto pagination)
         {
             if (string.IsNullOrWhiteSpace(query))
-                throw new BadRequestException(ErrorMessages.queryisrequired);
+                throw new BadRequestException(ErrorMessages.SearchQueryRequired);
 
             var searchQuery = _context.Products
                 .Include(p => p.Category)
@@ -194,10 +195,5 @@ namespace ECommerce.Infrastructure.Services
                 PageSize = pagination.PageSize
             };
         }
-
-
-
-
-
     }
 }

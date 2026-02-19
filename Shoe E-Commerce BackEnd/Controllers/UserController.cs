@@ -20,7 +20,7 @@ namespace ECommerce.API.Controllers
         }
 
         [Authorize(Roles = "User")]
-        [HttpGet("Me")]
+        [HttpGet("me")]
         public IActionResult Me()
         {
             var userData = new
@@ -31,18 +31,8 @@ namespace ECommerce.API.Controllers
             };
 
             return Ok(ApiResponse<object>
-                .SuccessResponse(SuccessMessages.UserDetailsFetched, userData));
+                .SuccessResponse(SuccessMessages.UserDetailsFetchedSuccessfully, userData));
         }
-
-        //[HttpPost("login")]
-        //public IActionResult Login(LoginDto loginDto)
-        //{
-        //    var result = _authService.Login(loginDto);
-
-        //    return Ok(ApiResponse<LoginResponseDto>
-        //        .SuccessResponse(SuccessMessages.Login, result));
-        //}
-
 
         [HttpPost("signup")]
         public async Task<IActionResult> Signup(SignUpDto dto)
@@ -50,7 +40,7 @@ namespace ECommerce.API.Controllers
             await _authService.SignupAsync(dto);
 
             return Ok(ApiResponse<object>
-                .SuccessResponse(SuccessMessages.Signup, null));
+                .SuccessResponse(SuccessMessages.UserRegisteredSuccessfully, null));
         }
     }
 }

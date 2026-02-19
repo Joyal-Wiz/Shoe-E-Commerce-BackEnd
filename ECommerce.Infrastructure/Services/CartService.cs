@@ -24,9 +24,9 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(p => p.Id == productId);
 
             if (product == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.ProductNotFound);
 
-            //  Get or create cart
+            // Get or create cart
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
@@ -66,7 +66,8 @@ namespace ECommerce.Infrastructure.Services
 
             await _context.SaveChangesAsync();
         }
-        //get item in cart 
+
+        // Get items in cart 
         public async Task<List<CartItemResponseDto>> GetCartAsync(Guid userId)
         {
             var cart = await _context.Carts
@@ -80,7 +81,7 @@ namespace ECommerce.Infrastructure.Services
 
             var result = cart.CartItems.Select(ci => new CartItemResponseDto
             {
-                CartItemId = ci.Id,     
+                CartItemId = ci.Id,
                 ProductId = ci.ProductId,
                 ProductName = ci.Product.Name,
                 ImageUrl = ci.Product.ImageUrl,
@@ -88,10 +89,10 @@ namespace ECommerce.Infrastructure.Services
                 Quantity = ci.Quantity
             }).ToList();
 
-
             return result;
         }
-        //update item in cart
+
+        // Update item in cart
         public async Task UpdateCartItemAsync(Guid userId, Guid cartItemId, int quantity)
         {
             var cart = await _context.Carts
@@ -99,26 +100,23 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.CartNotFound);
 
             var cartItem = cart.CartItems
                 .FirstOrDefault(ci => ci.Id == cartItemId);
 
             if (cartItem == null)
-                throw new NotFoundException(ErrorMessages.itemnotfound);
+                throw new NotFoundException(ErrorMessages.CartItemNotFound);
 
             if (quantity <= 0)
-            {
-                _context.CartItems.Remove(cartItem);
-            }
-            else
-            {
-                cartItem.Quantity = quantity;
-            }
+                throw new BadRequestException(ErrorMessages.InvalidCartItemQuantity);
+
+            cartItem.Quantity = quantity;
 
             await _context.SaveChangesAsync();
         }
-        //delete item in cart
+
+        // Delete item in cart
         public async Task DeleteCartItemAsync(Guid userId, Guid cartItemId)
         {
             var cart = await _context.Carts
@@ -126,19 +124,17 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.CartNotFound);
 
             var cartItem = cart.CartItems
                 .FirstOrDefault(ci => ci.Id == cartItemId);
 
             if (cartItem == null)
-                throw new NotFoundException(ErrorMessages.itemnotfound);
+                throw new NotFoundException(ErrorMessages.CartItemNotFound);
 
             _context.CartItems.Remove(cartItem);
 
             await _context.SaveChangesAsync();
         }
-
-
     }
 }

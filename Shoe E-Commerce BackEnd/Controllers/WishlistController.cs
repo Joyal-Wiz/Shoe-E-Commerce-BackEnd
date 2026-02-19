@@ -33,10 +33,12 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<WishlistItemResponseDto>>
-                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
+                    .SuccessResponse(
+                        SuccessMessages.WishlistFetchedSuccessfully,
+                        result
+                    )
             );
         }
-
 
         [Authorize(Roles = "User")]
         [HttpPost("{productId}")]
@@ -52,7 +54,10 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.addedSuccessfully, null)
+                    .SuccessResponse(
+                        SuccessMessages.WishlistItemAddedSuccessfully,
+                        null
+                    )
             );
         }
 
@@ -71,9 +76,11 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<string>
-                    .SuccessResponse(SuccessMessages.deletedsuccessfully, null)
+                    .SuccessResponse(
+                        SuccessMessages.WishlistItemDeletedSuccessfully,
+                        null
+                    )
             );
         }
-
     }
 }

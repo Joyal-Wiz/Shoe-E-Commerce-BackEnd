@@ -21,18 +21,19 @@ namespace ECommerce.API.Controllers
 
         [HttpGet]
         public async Task<IActionResult> GetAllProducts(
-     [FromQuery] PaginationRequestDto pagination)
+            [FromQuery] PaginationRequestDto pagination)
         {
             var result = await _productService.GetAllProductsAsync(pagination);
 
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
                     .SuccessResponse(
-                        SuccessMessages.FetchedSuccessfully,
+                        SuccessMessages.ProductsFetchedSuccessfully,
                         result
                     )
             );
         }
+
         [HttpGet("{productId}")]
         public async Task<IActionResult> GetProductById(Guid productId)
         {
@@ -41,25 +42,31 @@ namespace ECommerce.API.Controllers
             return Ok(
                 ApiResponse<ProductResponseDto>
                     .SuccessResponse(
-                        SuccessMessages.FetchedSuccessfully,
+                        SuccessMessages.ProductFetchedSuccessfully,
                         result
                     )
             );
         }
-
 
         [Authorize(Roles = "Admin")]
         [HttpPost("create")]
         public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto dto)
         {
             var result = await _productService.CreateProductAsync(dto);
-            return Ok(result);
+
+            return Ok(
+                ApiResponse<ProductResponseDto>
+                    .SuccessResponse(
+                        SuccessMessages.ProductCreatedSuccessfully,
+                        result
+                    )
+            );
         }
 
         [HttpGet("category/{categoryId}")]
         public async Task<IActionResult> GetProductsByCategory(
             Guid categoryId,
-                 [FromQuery] PaginationRequestDto pagination)
+            [FromQuery] PaginationRequestDto pagination)
         {
             var result = await _productService
                 .GetProductsByCategoryAsync(categoryId, pagination);
@@ -67,7 +74,7 @@ namespace ECommerce.API.Controllers
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
                     .SuccessResponse(
-                        SuccessMessages.FetchedSuccessfully,
+                        SuccessMessages.ProductsFetchedSuccessfully,
                         result
                     )
             );
@@ -83,10 +90,11 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<PaginatedResponseDto<ProductResponseDto>>
-                    .SuccessResponse(SuccessMessages.SearchSuccess, result)
+                    .SuccessResponse(
+                        SuccessMessages.ProductsFetchedSuccessfully,
+                        result
+                    )
             );
         }
-
-
     }
 }

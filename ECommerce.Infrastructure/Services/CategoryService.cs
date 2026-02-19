@@ -24,7 +24,7 @@ namespace ECommerce.Infrastructure.Services
                 .AnyAsync(c => c.Name.ToLower() == dto.Name.ToLower());
 
             if (exists)
-                throw new AlreadyExistsException(ErrorMessages.alreadyexists);
+                throw new AlreadyExistsException(ErrorMessages.CategoryAlreadyExists);
 
             // Create entity
             var category = new Category
@@ -47,6 +47,7 @@ namespace ECommerce.Infrastructure.Services
                 Description = category.Description
             };
         }
+
         public async Task<List<CategoryResponseDto>> GetAllCategoriesAsync()
         {
             var categories = await _context.Categories
@@ -61,6 +62,5 @@ namespace ECommerce.Infrastructure.Services
 
             return categories;
         }
-
     }
 }

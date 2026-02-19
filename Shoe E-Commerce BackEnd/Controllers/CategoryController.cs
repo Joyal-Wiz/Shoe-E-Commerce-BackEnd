@@ -24,7 +24,7 @@ namespace ECommerce.API.Controllers
 
             return Ok(
                 ApiResponse<List<CategoryResponseDto>>
-                    .SuccessResponse(SuccessMessages.FetchedSuccessfully, result)
+                    .SuccessResponse(SuccessMessages.Categoryfetchedsuccessfully, result)
             );
         }
 

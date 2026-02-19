@@ -117,80 +117,92 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AdminInactive" xml:space="preserve">
-    <value>Admin account is inactive</value>
-    <comment>Shown when inactive admin attempts login</comment>
+  <data name="CartIsEmpty" xml:space="preserve">
+    <value>Cart Is Empty.</value>
+    <comment>Thrown when attempting to create an order with an empty or non-existent cart.</comment>
   </data>
-  <data name="AdminInvalidPassword" xml:space="preserve">
-    <value>Invalid admin password</value>
-    <comment>Shown when admin password is incorrect</comment>
+  <data name="CartItemNotFound" xml:space="preserve">
+    <value> Cart item not found.</value>
+    <comment>Thrown when the specified cart item does not exist in the user's cart.</comment>
   </data>
-  <data name="AdminInvalidUsername" xml:space="preserve">
-    <value>Invalid admin username</value>
-    <comment>Shown when admin username does not exist</comment>
+  <data name="CartNotFound" xml:space="preserve">
+    <value>Cart not found.</value>
+    <comment>Thrown when the cart does not exist for the given user.</comment>
   </data>
-  <data name="alreadyexists" xml:space="preserve">
-    <value>Item Is Already Exist </value>
-    <comment>when the item is in the catogory,cart and other </comment>
+  <data name="CategoryAlreadyExists" xml:space="preserve">
+    <value> Category Already Exists.</value>
+    <comment>Thrown when attempting to create a category with a name that already exists in the system.</comment>
   </data>
-  <data name="cancelledsucess" xml:space="preserve">
-    <value>Cancelled Sucessfully </value>
-    <comment>to show when the cancelation is sucessfull</comment>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Category not found.</value>
+    <comment>Thrown when the specified category does not exist while creating or filtering products.</comment>
   </data>
-  <data name="Categorynotfound" xml:space="preserve">
-    <value>Category not found</value>
-    <comment>when the category is not founded</comment>
+  <data name="EmailAlreadyExists" xml:space="preserve">
+    <value> Email Already Exists.</value>
+    <comment>Thrown when trying to register with an email that is already registered.</comment>
   </data>
-  <data name="EmailExists" xml:space="preserve">
-    <value>Email already exists</value>
-    <comment>Shown during signup if email already exists</comment>
+  <data name="InsufficientProductStock" xml:space="preserve">
+    <value>Insufficient stock for the requested product.</value>
+    <comment>Thrown when the available product stock is less than the requested quantity during order creation.</comment>
+  </data>
+  <data name="InvalidCartItemQuantity" xml:space="preserve">
+    <value>Invalid quantity. Quantity must be greater than zero.</value>
+    <comment>Thrown when an invalid quantity is provided while updating a cart item.</comment>
   </data>
   <data name="InvalidPassword" xml:space="preserve">
-    <value>Invalid password</value>
-    <comment>Shown when user enters wrong password</comment>
+    <value>Invalid Password.</value>
+    <comment>Thrown when the entered password does not match the stored password.</comment>
   </data>
   <data name="InvalidUsername" xml:space="preserve">
-    <value>Invalid username</value>
-    <comment>Shown when user enters a username that does not exist</comment>
+    <value>Invalid username.</value>
+    <comment>Thrown when the provided username does not exist in the system during login.</comment>
   </data>
-  <data name="isempty" xml:space="preserve">
-    <value>The Item Is empty</value>
-    <comment>to show when the cart, wishlist and other are empty</comment>
+  <data name="OrderCancellationNotAllowed" xml:space="preserve">
+    <value> Only pending orders can be cancelled.</value>
+    <comment>Thrown when attempting to cancel an order that is not in pending status.</comment>
   </data>
-  <data name="itemnotfound" xml:space="preserve">
-    <value>Item is Not Found</value>
-    <comment>when the item in the whichlist,cart , other are not found</comment>
+  <data name="OrderNotFound" xml:space="preserve">
+    <value>Order not found.</value>
+    <comment>Thrown when the requested order does not exist for the user.</comment>
   </data>
-  <data name="notfound" xml:space="preserve">
-    <value>Not Found </value>
-    <comment>when the things are not fond</comment>
-  </data>
-  <data name="pendingorderscancel" xml:space="preserve">
-    <value>Only pending orders can be cancelled</value>
-    <comment>to show when user try to cancel the approved orders </comment>
-  </data>
-  <data name="queryisrequired" xml:space="preserve">
-    <value>Search query is required</value>
-    <comment>if the search query is empty </comment>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value> Product Not Found.</value>
+    <comment>Thrown when the specified product does not exist while adding to cart.</comment>
   </data>
   <data name="RefreshTokenExpired" xml:space="preserve">
-    <value>Refresh token expired</value>
-    <comment>Shown when refresh token has expired</comment>
+    <value>Refresh Token Has Expired.</value>
+    <comment> Thrown when the refresh token is no longer valid due to expiration.</comment>
   </data>
   <data name="RefreshTokenInvalid" xml:space="preserve">
-    <value>Invalid refresh token</value>
-    <comment>Shown when refresh token does not exist or is tampered</comment>
+    <value>Invalid Refresh Token.</value>
+    <comment>Thrown when the provided refresh token does not match any user.</comment>
+  </data>
+  <data name="SearchQueryRequired" xml:space="preserve">
+    <value>Search query is required.</value>
+    <comment>Thrown when the search query is null, empty, or whitespace.</comment>
   </data>
   <data name="ServerError" xml:space="preserve">
-    <value>An unexpected error occurred</value>
-    <comment>Generic fallback error message</comment>
+    <value>An unexpected error occurred. Please try again later.</value>
+    <comment>Returned when an unhandled server error occurs.</comment>
   </data>
   <data name="UserInactive" xml:space="preserve">
-    <value>User account is inactive</value>
-    <comment>Shown when inactive user attempts login</comment>
+    <value>User Account Is Inactive.</value>
+    <comment>Thrown when the user exists but their account is disabled.</comment>
   </data>
-  <data name="UsernameExists" xml:space="preserve">
-    <value>Username already exists</value>
-    <comment>Shown during signup if username already exists</comment>
+  <data name="UsernameAlreadyExists" xml:space="preserve">
+    <value> Username aAready Exists.</value>
+    <comment>Thrown when trying to register with a username that is already taken.</comment>
+  </data>
+  <data name="WishlistItemAlreadyExists" xml:space="preserve">
+    <value>Item already exists in wishlist.</value>
+    <comment>Thrown when attempting to add a product that already exists in the wishlist.</comment>
+  </data>
+  <data name="WishlistItemNotFound" xml:space="preserve">
+    <value>Wishlist item not found.</value>
+    <comment>Thrown when the specified wishlist item does not exist.</comment>
+  </data>
+  <data name="WishlistNotFound" xml:space="preserve">
+    <value>Wishlist not found.</value>
+    <comment>Thrown when the wishlist does not exist for the given user.</comment>
   </data>
 </root>

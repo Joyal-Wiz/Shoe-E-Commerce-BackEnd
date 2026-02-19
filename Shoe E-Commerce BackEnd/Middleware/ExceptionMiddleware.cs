@@ -9,10 +9,12 @@ namespace ECommerce.API.Middleware
     public class ExceptionMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly ILogger<ExceptionMiddleware> _logger;
 
-        public ExceptionMiddleware(RequestDelegate next)
+        public ExceptionMiddleware(RequestDelegate next, ILogger<ExceptionMiddleware> logger)
         {
             _next = next;
+            _logger = logger;
         }
 
         public async Task InvokeAsync(HttpContext context)
@@ -23,6 +25,7 @@ namespace ECommerce.API.Middleware
             }
             catch (Exception ex)
             {
+                _logger.LogError(ex, ex.Message); // ✅ Logging added
                 await HandleExceptionAsync(context, ex);
             }
         }
@@ -31,33 +34,41 @@ namespace ECommerce.API.Middleware
         {
             context.Response.ContentType = "application/json";
 
-            context.Response.StatusCode = exception switch
+            var statusCode = exception switch
             {
-                UnauthorizedException => (int)HttpStatusCode.Unauthorized,
-                AlreadyExistsException => (int)HttpStatusCode.Conflict,
-                BadRequestException => (int)HttpStatusCode.BadRequest,
-                NotFoundException => (int)HttpStatusCode.NotFound,
-                _ => (int)HttpStatusCode.InternalServerError
+                UnauthorizedException => HttpStatusCode.Unauthorized,
+                AlreadyExistsException => HttpStatusCode.Conflict,
+                BadRequestException => HttpStatusCode.BadRequest,
+                NotFoundException => HttpStatusCode.NotFound,
+                _ => HttpStatusCode.InternalServerError
             };
 
+            context.Response.StatusCode = (int)statusCode;
 
-            var message = exception switch
+            var message = statusCode == HttpStatusCode.InternalServerError
+                ? ErrorMessages.ServerError
+                : exception.Message;
+
+            var errorCode = exception switch
             {
-                _ => exception.Message
+                UnauthorizedException => "UNAUTHORIZED",
+                AlreadyExistsException => "ALREADY_EXISTS",
+                BadRequestException => "BAD_REQUEST",
+                NotFoundException => "NOT_FOUND",
+                _ => "SERVER_ERROR"
             };
 
-            if (context.Response.StatusCode == (int)HttpStatusCode.InternalServerError)
+            var response = new
             {
-                message = ErrorMessages.ServerError;
-            }
-
-            var response = ApiResponse<object>
-                .FailureResponse(message);
+                success = false,
+                message,
+                errorCode,
+                statusCode = context.Response.StatusCode
+            };
 
             var json = JsonSerializer.Serialize(response);
 
             await context.Response.WriteAsync(json);
         }
-
     }
 }

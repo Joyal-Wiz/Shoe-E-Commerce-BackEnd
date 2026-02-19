@@ -22,14 +22,14 @@ namespace ECommerce.Infrastructure.Services
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
 
-            //  Load cart with items and products
+            // Load cart with items and products
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
                     .ThenInclude(ci => ci.Product)
                 .FirstOrDefaultAsync(c => c.UserId == userId);
 
             if (cart == null || !cart.CartItems.Any())
-                throw new BadRequestException(ErrorMessages.isempty);
+                throw new BadRequestException(ErrorMessages.CartIsEmpty);
 
             // Create Order
             var order = new Order
@@ -49,10 +49,8 @@ namespace ECommerce.Infrastructure.Services
             foreach (var item in cart.CartItems)
             {
                 if (item.Product.Stock < item.Quantity)
-                    throw new BadRequestException(
-                        $"Insufficient stock for product {item.Product.Name}");
+                    throw new BadRequestException(ErrorMessages.InsufficientProductStock);
 
-                // Update stock
                 item.Product.Stock -= item.Quantity;
 
                 var orderItem = new OrderItem
@@ -62,7 +60,7 @@ namespace ECommerce.Infrastructure.Services
                     ProductId = item.ProductId,
                     Quantity = item.Quantity,
                     Price = item.Product.Price,
-                    Product = item.Product //keep product reference
+                    Product = item.Product
                 };
 
                 totalAmount += item.Product.Price * item.Quantity;
@@ -76,11 +74,9 @@ namespace ECommerce.Infrastructure.Services
             // Clear cart
             _context.CartItems.RemoveRange(cart.CartItems);
 
-            // Save & commit
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            // Response DTO (NO cart lookup)
             return new OrderResponseDto
             {
                 OrderId = order.Id,
@@ -95,8 +91,8 @@ namespace ECommerce.Infrastructure.Services
                     Price = oi.Price
                 }).ToList()
             };
-
         }
+
         public async Task<List<OrderResponseDto>> GetUserOrdersAsync(Guid userId)
         {
             var orders = await _context.Orders
@@ -121,6 +117,7 @@ namespace ECommerce.Infrastructure.Services
                 }).ToList()
             }).ToList();
         }
+
         public async Task<OrderResponseDto> GetOrderByIdAsync(Guid userId, Guid orderId)
         {
             var order = await _context.Orders
@@ -129,7 +126,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
 
             if (order == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.OrderNotFound);
 
             return new OrderResponseDto
             {
@@ -146,6 +143,7 @@ namespace ECommerce.Infrastructure.Services
                 }).ToList()
             };
         }
+
         public async Task<string> CancelOrderAsync(Guid userId, Guid orderId)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
@@ -156,10 +154,10 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId && o.UserId == userId);
 
             if (order == null)
-                throw new NotFoundException(ErrorMessages.notfound);
+                throw new NotFoundException(ErrorMessages.OrderNotFound);
 
             if (order.Status != OrderStatus.Pending)
-                throw new BadRequestException(ErrorMessages.pendingorderscancel);
+                throw new BadRequestException(ErrorMessages.OrderCancellationNotAllowed);
 
             foreach (var item in order.OrderItems)
             {
@@ -171,8 +169,7 @@ namespace ECommerce.Infrastructure.Services
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            return ErrorMessages.cancelledsucess;
+            return ErrorMessages.OrderCancelledSuccessfully;
         }
-
     }
 }

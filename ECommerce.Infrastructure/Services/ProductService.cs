@@ -163,17 +163,16 @@ namespace ECommerce.Infrastructure.Services
         }
 
         public async Task<PaginatedResponseDto<ProductResponseDto>> SearchProductsAsync(
-            string query,
-            PaginationRequestDto pagination)
+     string query,
+     PaginationRequestDto pagination)
         {
-            if (string.IsNullOrWhiteSpace(query))
-                throw new BadRequestException(ErrorMessages.SearchQueryRequired);
+            var normalizedQuery = query.ToLower().Trim();
 
             var searchQuery = _context.Products
                 .Include(p => p.Category)
                 .Where(p =>
-                    p.Name.ToLower().Contains(query.ToLower()) ||
-                    p.Description.ToLower().Contains(query.ToLower()))
+                    p.Name.ToLower().Contains(normalizedQuery) ||
+                    p.Description.ToLower().Contains(normalizedQuery))
                 .AsNoTracking();
 
             var totalCount = await searchQuery.CountAsync();

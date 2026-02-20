@@ -49,26 +49,13 @@ namespace ECommerce.API.Middleware
                 ? ErrorMessages.ServerError
                 : exception.Message;
 
-            var errorCode = exception switch
-            {
-                UnauthorizedException => "UNAUTHORIZED",
-                AlreadyExistsException => "ALREADY_EXISTS",
-                BadRequestException => "BAD_REQUEST",
-                NotFoundException => "NOT_FOUND",
-                _ => "SERVER_ERROR"
-            };
+            var response = ApiResponse<object>.FailureResponse(
+                message: message,
+                statusCode: (int)statusCode,
+                errors: null
+            );
 
-            var response = new
-            {
-                success = false,
-                message,
-                errorCode,
-                statusCode = context.Response.StatusCode
-            };
-
-            var json = JsonSerializer.Serialize(response);
-
-            await context.Response.WriteAsync(json);
+            await context.Response.WriteAsJsonAsync(response);
         }
     }
 }

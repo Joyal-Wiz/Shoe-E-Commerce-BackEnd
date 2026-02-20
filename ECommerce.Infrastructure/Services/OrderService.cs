@@ -169,7 +169,7 @@ namespace ECommerce.Infrastructure.Services
             await _context.SaveChangesAsync();
             await transaction.CommitAsync();
 
-            return ErrorMessages.OrderCancelledSuccessfully;
+            return SuccessMessages.OrderCancelledSuccessfully;
         }
     }
 }

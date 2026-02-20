@@ -1,6 +1,8 @@
 ﻿using ECommerce.Application.DTO.Auth;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Responses;
 using Microsoft.AspNetCore.Mvc;
+using ECommerce.Application.Resources;
 
 namespace Shoe_E_Commerce_BackEnd.Controllers
 {
@@ -15,22 +17,42 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
             _authService = authService;
         }
 
-
         [HttpPost("login")]
         public IActionResult Login(LoginDto dto)
         {
-            var response = _authService.Login(dto);
-            return Ok(response);
-        }
+            var result = _authService.Login(dto);
 
+            if (result == null)
+            {
+                var failure = ApiResponse<LoginResponseDto>
+                    .FailureResponse(ErrorMessages.Invalidcredentials, 401);
+
+                return StatusCode(failure.StatusCode, failure);
+            }
+
+            var success = ApiResponse<LoginResponseDto>
+                .SuccessResponse(SuccessMessages.Loginsuccessful, result, 200);
+
+            return StatusCode(success.StatusCode, success);
+        }
 
         [HttpPost("refresh")]
         public IActionResult Refresh(RefreshTokenDto dto)
         {
-            var response = _authService.RefreshToken(dto);
-            return Ok(response);
+            var result = _authService.RefreshToken(dto);
+
+            if (result == null)
+            {
+                var failure = ApiResponse<LoginResponseDto>
+                    .FailureResponse(ErrorMessages.Invalidrefreshtoken, 401);
+
+                return StatusCode(failure.StatusCode, failure);
+            }
+
+            var success = ApiResponse<LoginResponseDto>
+                .SuccessResponse(SuccessMessages.Tokenrefreshedsuccessfully, result, 200);
+
+            return StatusCode(success.StatusCode, success);
         }
-
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using ECommerce.Application.Responses;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -43,26 +44,31 @@ namespace ECommerce.API.Extensions
                         OnChallenge = async context =>
                         {
                             context.HandleResponse();
+
+                            var response = ApiResponse<object>.FailureResponse(
+                                message: "Unauthorized. Please provide a valid token.",
+                                statusCode: 401,
+                                errors: null
+                            );
+
                             context.Response.StatusCode = 401;
                             context.Response.ContentType = "application/json";
 
-                            await context.Response.WriteAsJsonAsync(new
-                            {
-                                success = false,
-                                message = "Unauthorized. Please provide a valid token."
-                            });
+                            await context.Response.WriteAsJsonAsync(response);
                         },
 
                         OnForbidden = async context =>
                         {
+                            var response = ApiResponse<object>.FailureResponse(
+                                message: "Forbidden. You do not have permission to access this resource.",
+                                statusCode: 403,
+                                errors: null
+                            );
+
                             context.Response.StatusCode = 403;
                             context.Response.ContentType = "application/json";
 
-                            await context.Response.WriteAsJsonAsync(new
-                            {
-                                success = false,
-                                message = "Forbidden. You do not have permission to access this resource."
-                            });
+                            await context.Response.WriteAsJsonAsync(response);
                         }
                     };
                 });

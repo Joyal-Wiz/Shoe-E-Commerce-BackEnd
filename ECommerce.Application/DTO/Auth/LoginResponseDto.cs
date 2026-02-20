@@ -10,5 +10,6 @@ namespace ECommerce.Application.DTO.Auth
     {
         public string Token { get; set; }
         public string RefreshToken { get; set; }
+
     }
 }

@@ -137,6 +137,18 @@
     <value>Category created successfully.</value>
     <comment>Returned when a new category is successfully created.</comment>
   </data>
+  <data name="Categoryfetchedsuccessfully" xml:space="preserve">
+    <value>Category Fetched Successfully</value>
+    <comment>when the Category fetching is sucess</comment>
+  </data>
+  <data name="LoginSuccess" xml:space="preserve">
+    <value>User Successfully Loggedin</value>
+    <comment>when the user is loggedin</comment>
+  </data>
+  <data name="Loginsuccessful" xml:space="preserve">
+    <value>Login successful</value>
+    <comment>when the login is sucess</comment>
+  </data>
   <data name="OrderCancelledSuccessfully" xml:space="preserve">
     <value>Order cancelled successfully.</value>
     <comment> Returned when an order is successfully cancelled.</comment>
@@ -164,6 +176,14 @@
   <data name="ProductsFetchedSuccessfully" xml:space="preserve">
     <value> Products retrieved successfully.</value>
     <comment>Returned when a list of products is successfully fetched.</comment>
+  </data>
+  <data name="RefreshTokenSuccess" xml:space="preserve">
+    <value>Token refreshed successfully.</value>
+    <comment>when the token is refreshed</comment>
+  </data>
+  <data name="Tokenrefreshedsuccessfully" xml:space="preserve">
+    <value>Token refreshed successfully</value>
+    <comment>when Token refreshed successfully</comment>
   </data>
   <data name="UserDetailsFetchedSuccessfully" xml:space="preserve">
     <value>User details retrieved successfully.</value>

@@ -133,11 +133,29 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invalid credentials.
+        /// </summary>
+        public static string Invalidcredentials {
+            get {
+                return ResourceManager.GetString("Invalidcredentials", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Invalid Password..
         /// </summary>
         public static string InvalidPassword {
             get {
                 return ResourceManager.GetString("InvalidPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Invalid refresh token.
+        /// </summary>
+        public static string Invalidrefreshtoken {
+            get {
+                return ResourceManager.GetString("Invalidrefreshtoken", resourceCulture);
             }
         }
         
@@ -169,6 +187,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Already Exists.
+        /// </summary>
+        public static string ProductAlreadyExists {
+            get {
+                return ResourceManager.GetString("ProductAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to  Product Not Found..
         /// </summary>
         public static string ProductNotFound {
@@ -192,6 +219,15 @@ namespace ECommerce.Application.Resources {
         public static string RefreshTokenInvalid {
             get {
                 return ResourceManager.GetString("RefreshTokenInvalid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Refresh token is required.
+        /// </summary>
+        public static string Refreshtokenisrequired {
+            get {
+                return ResourceManager.GetString("Refreshtokenisrequired", resourceCulture);
             }
         }
         

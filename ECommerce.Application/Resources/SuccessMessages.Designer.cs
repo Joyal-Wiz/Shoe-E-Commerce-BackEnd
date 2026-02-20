@@ -106,6 +106,33 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category Fetched Successfully.
+        /// </summary>
+        public static string Categoryfetchedsuccessfully {
+            get {
+                return ResourceManager.GetString("Categoryfetchedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Successfully Loggedin.
+        /// </summary>
+        public static string LoginSuccess {
+            get {
+                return ResourceManager.GetString("LoginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login successful.
+        /// </summary>
+        public static string Loginsuccessful {
+            get {
+                return ResourceManager.GetString("Loginsuccessful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order cancelled successfully..
         /// </summary>
         public static string OrderCancelledSuccessfully {
@@ -165,6 +192,24 @@ namespace ECommerce.Application.Resources {
         public static string ProductsFetchedSuccessfully {
             get {
                 return ResourceManager.GetString("ProductsFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token refreshed successfully..
+        /// </summary>
+        public static string RefreshTokenSuccess {
+            get {
+                return ResourceManager.GetString("RefreshTokenSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Token refreshed successfully.
+        /// </summary>
+        public static string Tokenrefreshedsuccessfully {
+            get {
+                return ResourceManager.GetString("Tokenrefreshedsuccessfully", resourceCulture);
             }
         }
         

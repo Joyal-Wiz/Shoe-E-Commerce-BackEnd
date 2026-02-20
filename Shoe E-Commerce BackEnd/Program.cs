@@ -1,25 +1,30 @@
 using ECommerce.API.Extensions;
 using ECommerce.API.Middleware;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Responses;
 using ECommerce.Infrastructure.Data;
 using ECommerce.Infrastructure.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+
 
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IWishlistService, WishlistService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<JwtService>();
+builder.Services.AddScoped<PasswordService>();
 
 
 builder.Services.AddControllers()
@@ -30,13 +35,35 @@ builder.Services.AddControllers()
     });
 
 
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+    options.InvalidModelStateResponseFactory = context =>
+    {
+        var errors = context.ModelState
+            .Where(x => x.Value.Errors.Count > 0)
+            .SelectMany(x => x.Value.Errors)
+            .Select(x => x.ErrorMessage)
+            .ToList();
+
+        var response = ApiResponse<object>.FailureResponse(
+            message: "Validation failed",
+            statusCode: 400,
+            errors: errors
+        );
+
+        return new BadRequestObjectResult(response);
+    };
+});
+
+
 builder.Services.AddFluentValidationAutoValidation();
 builder.Services.AddFluentValidationClientsideAdapters();
 builder.Services.AddValidatorsFromAssemblyContaining<
     ECommerce.Application.Validators.SignUpDtoValidator
 >();
 
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -64,29 +91,16 @@ builder.Services.AddSwaggerGen(options =>
             new string[] { }
         }
     });
-
-
 });
+
+
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")
     )
 );
-builder.Services.AddScoped<JwtService>();
 
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<PasswordService>();
-
-var jwtSettings = builder.Configuration.GetSection("JwtSettings");
-
-
-var jwtKey = jwtSettings["SecretKey"];
-var jwtIssuer = jwtSettings["Issuer"];
-var jwtAudience = jwtSettings["Audience"];
-
-if (string.IsNullOrEmpty(jwtKey))
-    throw new Exception("JWT SecretKey is missing in configuration.");
 
 builder.Services.AddJwtAuthentication(builder.Configuration);
 
@@ -94,25 +108,21 @@ builder.Services.AddJwtAuthentication(builder.Configuration);
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 app.UseMiddleware<ExceptionMiddleware>();
 
 app.UseHttpsRedirection();
 
-
-
-app.UseAuthentication();   // Global Authentication Middleware
-app.UseAuthorization();   // Global Authorization Middleware
-
-
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 
-
 app.Run();
-

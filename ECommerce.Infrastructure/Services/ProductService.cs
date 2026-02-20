@@ -62,10 +62,17 @@ namespace ECommerce.Infrastructure.Services
             if (category == null)
                 throw new NotFoundException(ErrorMessages.CategoryNotFound);
 
+            var productExists = await _context.Products
+                .AnyAsync(p =>
+                    p.Name.ToLower().Trim() == dto.Name.ToLower().Trim());
+
+            if (productExists)
+                throw new AlreadyExistsException(ErrorMessages.ProductAlreadyExists);
+
             var product = new Product
             {
                 Id = Guid.NewGuid(),
-                Name = dto.Name,
+                Name = dto.Name.Trim(),
                 Description = dto.Description,
                 Price = dto.Price,
                 Stock = dto.Stock,

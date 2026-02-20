@@ -30,6 +30,10 @@ namespace ECommerce.Infrastructure.Data
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>()
+                .HasIndex(p => new { p.Name, p.CategoryId })
+                .IsUnique();
+
+            modelBuilder.Entity<Product>()
                 .Property(p => p.Price)
                 .HasPrecision(18, 2);
 
@@ -49,7 +53,7 @@ namespace ECommerce.Infrastructure.Data
 
             modelBuilder.Entity<User>().HasData(adminUser);
 
-            //wishlist
+            // Wishlist
             modelBuilder.Entity<Wishlist>()
                 .HasOne(w => w.User)
                 .WithOne()
@@ -65,7 +69,7 @@ namespace ECommerce.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(wi => wi.ProductId);
 
-            // cart 
+            // Cart
             modelBuilder.Entity<Cart>()
                 .HasOne(c => c.User)
                 .WithOne()
@@ -81,7 +85,7 @@ namespace ECommerce.Infrastructure.Data
                 .WithMany()
                 .HasForeignKey(ci => ci.ProductId);
 
-            //order
+            // Order
             modelBuilder.Entity<Order>()
                 .HasOne(o => o.User)
                 .WithMany()
@@ -96,6 +100,7 @@ namespace ECommerce.Infrastructure.Data
                 .HasOne(oi => oi.Product)
                 .WithMany()
                 .HasForeignKey(oi => oi.ProductId);
+
             modelBuilder.Entity<Order>()
                 .Property(o => o.TotalAmount)
                 .HasPrecision(18, 2);
@@ -103,8 +108,6 @@ namespace ECommerce.Infrastructure.Data
             modelBuilder.Entity<OrderItem>()
                 .Property(oi => oi.Price)
                 .HasPrecision(18, 2);
-
-
         }
 
 

@@ -201,5 +201,55 @@ namespace ECommerce.Infrastructure.Services
                 PageSize = pagination.PageSize
             };
         }
+
+        public async Task<ProductResponseDto> UpdateProductAsync(
+            Guid productId,
+            UpdateProductDto dto)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null)
+                throw new NotFoundException(ErrorMessages.ProductNotFound);
+
+            var categoryExists = await _context.Categories
+                .AnyAsync(c => c.Id == dto.CategoryId);
+
+            if (!categoryExists)
+                throw new NotFoundException(ErrorMessages.CategoryNotFound);
+
+            product.Name = dto.Name.Trim();
+            product.Description = dto.Description;
+            product.Price = dto.Price;
+            product.Stock = dto.Stock;
+            product.ImageUrl = dto.ImageUrl;
+            product.CategoryId = dto.CategoryId;
+
+            await _context.SaveChangesAsync();
+
+            return new ProductResponseDto
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Description = product.Description,
+                Price = product.Price,
+                Stock = product.Stock,
+                ImageUrl = product.ImageUrl,
+                CategoryId = product.CategoryId
+            };
+        }
+
+        public async Task DeleteProductAsync(Guid productId)
+        {
+            var product = await _context.Products
+                .FirstOrDefaultAsync(p => p.Id == productId);
+
+            if (product == null || product.IsDeleted)
+                throw new NotFoundException(ErrorMessages.ProductNotFound);
+
+            product.IsDeleted = true;
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

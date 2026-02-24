@@ -48,21 +48,6 @@ namespace ECommerce.API.Controllers
             );
         }
 
-        [Authorize(Roles = "Admin")]
-        [HttpPost("create")]
-        public async Task<IActionResult> CreateProduct([FromBody] CreateProductDto dto)
-        {
-            var result = await _productService.CreateProductAsync(dto);
-
-            return Ok(
-                ApiResponse<ProductResponseDto>
-                    .SuccessResponse(
-                        SuccessMessages.ProductCreatedSuccessfully,
-                        result
-                    )
-            );
-        }
-
         [HttpGet("category/{categoryId}")]
         public async Task<IActionResult> GetProductsByCategory(
             Guid categoryId,

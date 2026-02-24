@@ -1,8 +1,10 @@
 ﻿using ECommerce.Application.DTO.Admin;
 using ECommerce.Application.DTO.Common;
+using ECommerce.Application.DTO.Product;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
+using ECommerce.Infrastructure.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
@@ -15,10 +17,13 @@ namespace ECommerce.API.Controllers
     public class AdminController : ControllerBase
     {
         private readonly IAdminService _adminService;
+        private readonly IProductService _productService;
 
-        public AdminController(IAdminService adminService)
+        public AdminController(IAdminService adminService, IProductService productService)
         {
             _adminService = adminService;
+            _productService = productService;
+
         }
 
         [HttpGet("users")]
@@ -75,6 +80,52 @@ namespace ECommerce.API.Controllers
                         result
                     )
             );
+        }
+
+        [HttpPost("products")]
+        public async Task<IActionResult> CreateProduct(
+    [FromBody] CreateProductDto dto)
+        {
+            var result = await _productService.CreateProductAsync(dto);
+
+            var response = ApiResponse<ProductResponseDto>
+                .SuccessResponse(
+                    SuccessMessages.ProductCreatedSuccessfully,
+                    result,
+                    201
+                );
+
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpPut("productUpdate/{id}")]
+        public async Task<IActionResult> UpdateProduct(
+            Guid id,
+            [FromBody] UpdateProductDto dto)
+        {
+            var result = await _productService.UpdateProductAsync(id, dto);
+
+            var response = ApiResponse<ProductResponseDto>
+                .SuccessResponse(
+                    SuccessMessages.ProductUpdatedSuccessfully,
+                    result
+                );
+
+            return StatusCode(response.StatusCode, response);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteProduct(Guid id)
+        {
+            await _productService.DeleteProductAsync(id);
+
+            var response = ApiResponse<object>
+                .SuccessResponse(
+                    SuccessMessages.ProductDeletedSuccessfully,
+                    null
+                );
+
+            return StatusCode(response.StatusCode, response);
         }
     }
 }

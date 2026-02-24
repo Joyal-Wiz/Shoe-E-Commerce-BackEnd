@@ -24,7 +24,6 @@ namespace ECommerce.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Product>()
                 .HasIndex(p => new { p.Name, p.CategoryId })
@@ -105,7 +104,14 @@ namespace ECommerce.Infrastructure.Data
             modelBuilder.Entity<OrderItem>()
                 .Property(oi => oi.Price)
                 .HasPrecision(18, 2);
+
+            modelBuilder.Entity<Product>()
+                .HasQueryFilter(p => !p.IsDeleted);
+
+            base.OnModelCreating(modelBuilder);
         }
+
+
 
 
     }

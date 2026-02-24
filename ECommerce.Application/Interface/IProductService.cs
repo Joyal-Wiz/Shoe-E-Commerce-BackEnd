@@ -23,5 +23,9 @@ namespace ECommerce.Application.Interface
         Task<PaginatedResponseDto<ProductResponseDto>>
     SearchProductsAsync(string query, PaginationRequestDto pagination);
 
+        Task<ProductResponseDto> UpdateProductAsync(Guid productId,UpdateProductDto dto);
+
+        Task DeleteProductAsync(Guid productId);
+
     }
 }

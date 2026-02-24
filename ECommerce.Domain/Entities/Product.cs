@@ -21,6 +21,7 @@ namespace ECommerce.Domain.Entities
         public int Stock { get; set; }
 
         public string ImageUrl { get; set; }
+        public bool IsDeleted { get; set; } = false;
 
         // Foreign Key
         public Guid CategoryId { get; set; }

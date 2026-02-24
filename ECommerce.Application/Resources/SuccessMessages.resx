@@ -169,6 +169,10 @@
     <value>Product created successfully.</value>
     <comment>Returned when a new product is successfully created.</comment>
   </data>
+  <data name="ProductDeletedSuccessfully" xml:space="preserve">
+    <value>Product Deleted Successfully</value>
+    <comment>when the Product Deleted Successfully</comment>
+  </data>
   <data name="ProductFetchedSuccessfully" xml:space="preserve">
     <value>Product retrieved successfully.</value>
     <comment>Returned when a specific product is successfully fetched.</comment>
@@ -176,6 +180,10 @@
   <data name="ProductsFetchedSuccessfully" xml:space="preserve">
     <value> Products retrieved successfully.</value>
     <comment>Returned when a list of products is successfully fetched.</comment>
+  </data>
+  <data name="ProductUpdatedSuccessfully" xml:space="preserve">
+    <value>Product Updated Successfully</value>
+    <comment>when the product is successfully updated </comment>
   </data>
   <data name="RefreshTokenSuccess" xml:space="preserve">
     <value>Token refreshed successfully.</value>

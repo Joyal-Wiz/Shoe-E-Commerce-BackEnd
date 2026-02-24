@@ -178,6 +178,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Deleted Successfully.
+        /// </summary>
+        public static string ProductDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProductDeletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product retrieved successfully..
         /// </summary>
         public static string ProductFetchedSuccessfully {
@@ -192,6 +201,15 @@ namespace ECommerce.Application.Resources {
         public static string ProductsFetchedSuccessfully {
             get {
                 return ResourceManager.GetString("ProductsFetchedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Product Updated Successfully.
+        /// </summary>
+        public static string ProductUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("ProductUpdatedSuccessfully", resourceCulture);
             }
         }
         

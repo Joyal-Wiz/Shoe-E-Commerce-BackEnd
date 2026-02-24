@@ -9,7 +9,8 @@ namespace ECommerce.Application.Interface
 {
     public interface IAuthService
     {
-        LoginResponseDto Login(LoginDto loginDto);
+        Task<LoginResponseDto> LoginAsync(LoginDto loginDto);
+
         Task SignupAsync(SignUpDto dto);
         LoginResponseDto RefreshToken(RefreshTokenDto dto);
 

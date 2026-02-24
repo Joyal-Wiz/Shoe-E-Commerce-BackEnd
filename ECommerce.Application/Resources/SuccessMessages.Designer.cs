@@ -214,6 +214,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The User is Blocked Successfully.
+        /// </summary>
+        public static string UserBlockedSuccessfully {
+            get {
+                return ResourceManager.GetString("UserBlockedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User details retrieved successfully..
         /// </summary>
         public static string UserDetailsFetchedSuccessfully {
@@ -237,6 +246,15 @@ namespace ECommerce.Application.Resources {
         public static string Usersretrievedsuccessfully {
             get {
                 return ResourceManager.GetString("Usersretrievedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Unblocked Successfully.
+        /// </summary>
+        public static string UserUnblockedSuccessfully {
+            get {
+                return ResourceManager.GetString("UserUnblockedSuccessfully", resourceCulture);
             }
         }
         

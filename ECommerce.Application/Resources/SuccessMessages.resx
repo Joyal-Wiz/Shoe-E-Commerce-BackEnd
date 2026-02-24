@@ -185,6 +185,10 @@
     <value>Token refreshed successfully</value>
     <comment>when Token refreshed successfully</comment>
   </data>
+  <data name="UserBlockedSuccessfully" xml:space="preserve">
+    <value>The User is Blocked Successfully</value>
+    <comment>when the user is blocked successfully by admin </comment>
+  </data>
   <data name="UserDetailsFetchedSuccessfully" xml:space="preserve">
     <value>User details retrieved successfully.</value>
     <comment>Returned when the authenticated user's details are successfully fetched.</comment>
@@ -196,6 +200,10 @@
   <data name="Usersretrievedsuccessfully" xml:space="preserve">
     <value>Users retrieved successfully.</value>
     <comment>when the fetch of user detail is success from the DB </comment>
+  </data>
+  <data name="UserUnblockedSuccessfully" xml:space="preserve">
+    <value>User Unblocked Successfully</value>
+    <comment>when the user unblocking is sucess</comment>
   </data>
   <data name="WishlistFetchedSuccessfully" xml:space="preserve">
     <value>Wishlist retrieved successfully.</value>

@@ -37,5 +37,15 @@ namespace ECommerce.Infrastructure.Repositories
                 .AsNoTracking()
                 .FirstOrDefaultAsync(u => u.Id == userId);
         }
+        public async Task<User?> GetByIdTrackingAsync(Guid userId)
+        {
+            return await _context.Users
+                .FirstOrDefaultAsync(u => u.Id == userId);
+        }
+
+        public async Task SaveChangesAsync()
+        {
+            await _context.SaveChangesAsync();
+        }
     }
 }

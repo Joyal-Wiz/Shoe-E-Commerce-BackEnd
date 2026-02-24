@@ -26,13 +26,13 @@ namespace ECommerce.Infrastructure.Services
         }
 
         // LOGIN for both USER and ADMIN
-        public LoginResponseDto Login(LoginDto loginDto)
+        public async Task<LoginResponseDto> LoginAsync(LoginDto loginDto)
         {
-            var user = _context.Users
-                .FirstOrDefault(u => u.Username == loginDto.Username);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(u => u.Username == loginDto.Username);
 
             if (user == null)
-                throw new UnauthorizedException(ErrorMessages.InvalidUsername);
+                throw new UnauthorizedException(ErrorMessages.Invalidcredentials);
 
             if (!user.IsActive)
                 throw new UnauthorizedException(ErrorMessages.UserInactive);
@@ -43,7 +43,7 @@ namespace ECommerce.Infrastructure.Services
             );
 
             if (!isPasswordValid)
-                throw new UnauthorizedException(ErrorMessages.InvalidPassword);
+                throw new UnauthorizedException(ErrorMessages.Invalidcredentials);
 
             var token = _jwtService.GenerateToken(user);
             var refreshToken = _jwtService.GenerateRefreshToken();
@@ -51,12 +51,12 @@ namespace ECommerce.Infrastructure.Services
             user.RefreshToken = refreshToken;
             user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
 
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return new LoginResponseDto
             {
                 Token = token,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
             };
         }
 

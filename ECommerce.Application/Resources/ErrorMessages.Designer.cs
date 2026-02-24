@@ -61,6 +61,33 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Admin cannot block their own account..
+        /// </summary>
+        public static string Admincannotblocktheiraccount {
+            get {
+                return ResourceManager.GetString("Admincannotblocktheiraccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Admin cannot modify their account.
+        /// </summary>
+        public static string Admincannotmodifytheiraccount {
+            get {
+                return ResourceManager.GetString("Admincannotmodifytheiraccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You Cannot Block Own Account.
+        /// </summary>
+        public static string CannotBlockOwnAccount {
+            get {
+                return ResourceManager.GetString("CannotBlockOwnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cart Is Empty..
         /// </summary>
         public static string CartIsEmpty {
@@ -250,11 +277,38 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The User Already Blocked.
+        /// </summary>
+        public static string UserAlreadyBlocked {
+            get {
+                return ResourceManager.GetString("UserAlreadyBlocked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to User Account Is Inactive..
         /// </summary>
         public static string UserInactive {
             get {
                 return ResourceManager.GetString("UserInactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is already active.
+        /// </summary>
+        public static string Userisalreadyactive {
+            get {
+                return ResourceManager.GetString("Userisalreadyactive", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User is already blocked..
+        /// </summary>
+        public static string Userisalreadyblocked {
+            get {
+                return ResourceManager.GetString("Userisalreadyblocked", resourceCulture);
             }
         }
         

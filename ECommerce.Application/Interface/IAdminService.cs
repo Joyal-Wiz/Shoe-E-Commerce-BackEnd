@@ -9,5 +9,12 @@ namespace ECommerce.Application.Interface
             GetAllUsersAsync(PaginationRequestDto pagination);
 
         Task<UserResponseDto> GetUserByIdAsync(Guid userId);
+
+        Task<UserStatusResponseDto> BlockUserAsync(
+            Guid userId,
+            Guid currentAdminId);
+        Task<UserStatusResponseDto> UnblockUserAsync(
+    Guid userId,
+    Guid currentAdminId);
     }
 }

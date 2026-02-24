@@ -18,23 +18,16 @@ namespace Shoe_E_Commerce_BackEnd.Controllers
         }
 
         [HttpPost("login")]
-        public IActionResult Login(LoginDto dto)
+        public async Task<IActionResult> Login(LoginDto dto)
         {
-            var result = _authService.Login(dto);
+            var result = await _authService.LoginAsync(dto);
 
-            if (result == null)
-            {
-                var failure = ApiResponse<LoginResponseDto>
-                    .FailureResponse(ErrorMessages.Invalidcredentials, 401);
-
-                return StatusCode(failure.StatusCode, failure);
-            }
-
-            var success = ApiResponse<LoginResponseDto>
+            var response = ApiResponse<LoginResponseDto>
                 .SuccessResponse(SuccessMessages.Loginsuccessful, result, 200);
 
-            return StatusCode(success.StatusCode, success);
+            return StatusCode(response.StatusCode, response);
         }
+
 
         [HttpPost("refresh")]
         public IActionResult Refresh(RefreshTokenDto dto)

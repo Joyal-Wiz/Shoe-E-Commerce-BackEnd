@@ -232,6 +232,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Users retrieved successfully..
+        /// </summary>
+        public static string Usersretrievedsuccessfully {
+            get {
+                return ResourceManager.GetString("Usersretrievedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wishlist retrieved successfully..
         /// </summary>
         public static string WishlistFetchedSuccessfully {

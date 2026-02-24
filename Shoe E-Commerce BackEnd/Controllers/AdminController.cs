@@ -1,22 +1,46 @@
-﻿using ECommerce.Application.Resources;
-using ECommerce.Application.DTO.Auth;
+﻿using ECommerce.Application.DTO.Admin;
+using ECommerce.Application.DTO.Common;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Shoe_E_Commerce_BackEnd.Controllers
+namespace ECommerce.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/admin")]
     [ApiController]
+    [Authorize(Roles = "Admin")]
     public class AdminController : ControllerBase
     {
-        private readonly IAuthService _authService;
+        private readonly IAdminService _adminService;
 
-        public AdminController(IAuthService authService)
+        public AdminController(IAdminService adminService)
         {
-            _authService = authService;
+            _adminService = adminService;
         }
 
+        [HttpGet("users")]
+        public async Task<IActionResult> GetAllUsers(
+    [FromQuery] PaginationRequestDto pagination)
+        {
+            var result = await _adminService.GetAllUsersAsync(pagination);
 
+            return Ok(
+                ApiResponse<PaginatedResponseDto<UserResponseDto>>
+                    .SuccessResponse(SuccessMessages.Usersretrievedsuccessfully, result)
+            );
+        }
+
+        [HttpGet("users/{id}")]
+        public async Task<IActionResult> GetUserById(Guid id)
+        {
+            var result = await _adminService.GetUserByIdAsync(id);
+
+            return Ok(
+                ApiResponse<UserResponseDto>
+                    .SuccessResponse(SuccessMessages.Usersretrievedsuccessfully, result)
+            );
+        }
     }
 }

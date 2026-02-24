@@ -9,6 +9,7 @@ namespace ECommerce.Infrastructure.Data
     {
         public AppDbContext(DbContextOptions options) : base(options)
         {
+
         }
 
         public DbSet<User> Users { get; set; }
@@ -20,8 +21,6 @@ namespace ECommerce.Infrastructure.Data
         public DbSet<CartItem> CartItems { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-
-
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

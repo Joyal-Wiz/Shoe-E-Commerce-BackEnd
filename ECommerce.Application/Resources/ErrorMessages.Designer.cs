@@ -70,7 +70,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Cart item not found..
+        ///   Looks up a localized string similar to Cart item not found..
         /// </summary>
         public static string CartItemNotFound {
             get {
@@ -88,7 +88,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Category Already Exists..
+        ///   Looks up a localized string similar to Category Already Exists..
         /// </summary>
         public static string CategoryAlreadyExists {
             get {
@@ -106,7 +106,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Email Already Exists..
+        ///   Looks up a localized string similar to Email Already Exists..
         /// </summary>
         public static string EmailAlreadyExists {
             get {
@@ -169,7 +169,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Only pending orders can be cancelled..
+        ///   Looks up a localized string similar to Only pending orders can be cancelled..
         /// </summary>
         public static string OrderCancellationNotAllowed {
             get {
@@ -196,7 +196,7 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Product Not Found..
+        ///   Looks up a localized string similar to Product Not Found..
         /// </summary>
         public static string ProductNotFound {
             get {
@@ -264,6 +264,15 @@ namespace ECommerce.Application.Resources {
         public static string UsernameAlreadyExists {
             get {
                 return ResourceManager.GetString("UsernameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Not Found.
+        /// </summary>
+        public static string Usernotfound {
+            get {
+                return ResourceManager.GetString("Usernotfound", resourceCulture);
             }
         }
         

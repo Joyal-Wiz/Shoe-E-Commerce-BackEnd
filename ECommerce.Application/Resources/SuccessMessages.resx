@@ -193,6 +193,10 @@
     <value>User registered successfully.</value>
     <comment>Returned when a new user account is successfully created.</comment>
   </data>
+  <data name="Usersretrievedsuccessfully" xml:space="preserve">
+    <value>Users retrieved successfully.</value>
+    <comment>when the fetch of user detail is success from the DB </comment>
+  </data>
   <data name="WishlistFetchedSuccessfully" xml:space="preserve">
     <value>Wishlist retrieved successfully.</value>
     <comment>Returned when the user's wishlist items are successfully fetched.</comment>

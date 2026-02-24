@@ -2,7 +2,9 @@ using ECommerce.API.Extensions;
 using ECommerce.API.Middleware;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Responses;
+using ECommerce.Application.Services;
 using ECommerce.Infrastructure.Data;
+using ECommerce.Infrastructure.Repositories;
 using ECommerce.Infrastructure.Services;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -25,7 +27,8 @@ builder.Services.AddScoped<IOrderService, OrderService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PasswordService>();
-
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IAdminService, AdminService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

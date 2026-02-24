@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.DTO.Category;
+using ECommerce.Application.DTO.Common;
 using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Resources;
@@ -48,10 +49,19 @@ namespace ECommerce.Infrastructure.Services
             };
         }
 
-        public async Task<List<CategoryResponseDto>> GetAllCategoriesAsync()
+        public async Task<PaginatedResponseDto<CategoryResponseDto>>
+    GetAllCategoriesAsync(PaginationRequestDto pagination)
         {
-            var categories = await _context.Categories
+            var query = _context.Categories
                 .AsNoTracking()
+                .AsQueryable();
+
+            var totalCount = await query.CountAsync();
+
+            var categories = await query
+                .OrderBy(c => c.Name)
+                .Skip((pagination.PageNumber - 1) * pagination.PageSize)
+                .Take(pagination.PageSize)
                 .Select(c => new CategoryResponseDto
                 {
                     Id = c.Id,
@@ -60,7 +70,66 @@ namespace ECommerce.Infrastructure.Services
                 })
                 .ToListAsync();
 
-            return categories;
+            return new PaginatedResponseDto<CategoryResponseDto>
+            {
+                Items = categories,
+                TotalCount = totalCount,
+                PageNumber = pagination.PageNumber,
+                PageSize = pagination.PageSize,
+                TotalPages = (int)Math.Ceiling(
+                    totalCount / (double)pagination.PageSize)
+            };
+        }
+
+        public async Task<CategoryResponseDto> UpdateCategoryAsync(
+            Guid categoryId,
+            UpdateCategoryDto dto)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+            if (category == null)
+                throw new NotFoundException(ErrorMessages.CategoryNotFound);
+
+            var duplicateExists = await _context.Categories
+                .AnyAsync(c =>
+                    c.Id != categoryId &&
+                    c.Name.ToLower().Trim() ==
+                    dto.Name.ToLower().Trim());
+
+            if (duplicateExists)
+                throw new AlreadyExistsException(
+                    ErrorMessages.CategoryAlreadyExists);
+
+            category.Name = dto.Name.Trim();
+            category.Description = dto.Description?.Trim();
+
+            await _context.SaveChangesAsync();
+
+            return new CategoryResponseDto
+            {
+                Id = category.Id,
+                Name = category.Name,
+                Description = category.Description
+            };
+        }
+
+        public async Task DeleteCategoryAsync(Guid categoryId)
+        {
+            var category = await _context.Categories
+                .FirstOrDefaultAsync(c => c.Id == categoryId);
+
+            if (category == null)
+                throw new NotFoundException(ErrorMessages.CategoryNotFound);
+
+            var hasProducts = await _context.Products
+                .AnyAsync(p => p.CategoryId == categoryId && !p.IsDeleted);
+
+            if (hasProducts)
+                throw new BadRequestException(ErrorMessages.categoryassigned);
+
+            _context.Categories.Remove(category);
+            await _context.SaveChangesAsync();
         }
     }
 }

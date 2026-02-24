@@ -145,6 +145,9 @@
     <value>Category Already Exists.</value>
     <comment>Thrown when attempting to create a category with a name that already exists in the system.</comment>
   </data>
+  <data name="categoryassigned" xml:space="preserve">
+    <value>Cannot delete category because products are assigned to it.</value>
+  </data>
   <data name="CategoryNotFound" xml:space="preserve">
     <value>Category not found.</value>
     <comment>Thrown when the specified category does not exist while creating or filtering products.</comment>

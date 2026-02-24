@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.DTO.Category;
+using ECommerce.Application.DTO.Common;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Resources;
 using ECommerce.Application.Responses;
@@ -18,13 +19,18 @@ namespace ECommerce.API.Controllers
             _categoryService = categoryService;
         }
         [HttpGet]
-        public async Task<IActionResult> GetAllCategories()
+        public async Task<IActionResult> GetAllCategories(
+           [FromQuery] PaginationRequestDto pagination)
         {
-            var result = await _categoryService.GetAllCategoriesAsync();
+            var result = await _categoryService
+                .GetAllCategoriesAsync(pagination);
 
             return Ok(
-                ApiResponse<List<CategoryResponseDto>>
-                    .SuccessResponse(SuccessMessages.Categoryfetchedsuccessfully, result)
+                ApiResponse<PaginatedResponseDto<CategoryResponseDto>>
+                    .SuccessResponse(
+                        SuccessMessages.Categoryfetchedsuccessfully,
+                        result
+                    )
             );
         }
 
@@ -34,7 +40,37 @@ namespace ECommerce.API.Controllers
         public async Task<IActionResult> CreateCategory([FromBody] CreateCategoryDto dto)
         {
             var result = await _categoryService.CreateCategoryAsync(dto);
-            return Ok(result);
+            return StatusCode(201,ApiResponse<CategoryResponseDto>
+        .SuccessResponse(SuccessMessages.CategoryCreatedSuccessfully,result,201));
+        }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateCategory(
+            Guid id,
+            [FromBody] UpdateCategoryDto dto)
+        {
+            var result = await _categoryService
+                .UpdateCategoryAsync(id, dto);
+
+            var response = ApiResponse<CategoryResponseDto>
+                .SuccessResponse(
+                    SuccessMessages.CategoryUpdatedSuccessfully,
+                    result
+                );
+
+            return StatusCode(response.StatusCode, response);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteCategory(Guid id)
+        {
+            await _categoryService.DeleteCategoryAsync(id);
+
+            var response = ApiResponse<object>
+                .SuccessResponse(SuccessMessages.CategoryDeletedSuccessfully,null);
+
+            return StatusCode(response.StatusCode, response);
         }
     }
 }

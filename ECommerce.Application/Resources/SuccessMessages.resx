@@ -137,9 +137,17 @@
     <value>Category created successfully.</value>
     <comment>Returned when a new category is successfully created.</comment>
   </data>
+  <data name="CategoryDeletedSuccessfully" xml:space="preserve">
+    <value>Category Deleted Successfully</value>
+    <comment>when the deletion of category is sucess</comment>
+  </data>
   <data name="Categoryfetchedsuccessfully" xml:space="preserve">
     <value>Category Fetched Successfully</value>
     <comment>when the Category fetching is sucess</comment>
+  </data>
+  <data name="CategoryUpdatedSuccessfully" xml:space="preserve">
+    <value>Category Updated Successfully</value>
+    <comment>when the Category Updated Successfully</comment>
   </data>
   <data name="LoginSuccess" xml:space="preserve">
     <value>User Successfully Loggedin</value>

@@ -124,6 +124,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot delete category because products are assigned to it..
+        /// </summary>
+        public static string categoryassigned {
+            get {
+                return ResourceManager.GetString("categoryassigned", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category not found..
         /// </summary>
         public static string CategoryNotFound {

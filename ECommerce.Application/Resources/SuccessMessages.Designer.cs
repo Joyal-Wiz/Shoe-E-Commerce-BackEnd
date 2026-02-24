@@ -106,11 +106,29 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category Deleted Successfully.
+        /// </summary>
+        public static string CategoryDeletedSuccessfully {
+            get {
+                return ResourceManager.GetString("CategoryDeletedSuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category Fetched Successfully.
         /// </summary>
         public static string Categoryfetchedsuccessfully {
             get {
                 return ResourceManager.GetString("Categoryfetchedsuccessfully", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category Updated Successfully.
+        /// </summary>
+        public static string CategoryUpdatedSuccessfully {
+            get {
+                return ResourceManager.GetString("CategoryUpdatedSuccessfully", resourceCulture);
             }
         }
         

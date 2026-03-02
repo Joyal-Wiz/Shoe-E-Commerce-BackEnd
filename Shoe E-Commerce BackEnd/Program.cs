@@ -29,6 +29,7 @@ builder.Services.AddScoped<JwtService>();
 builder.Services.AddScoped<PasswordService>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IAdminService, AdminService>();
+builder.Services.AddScoped<IPaymentService, RazorpayPaymentService>();
 
 builder.Services.AddControllers()
     .AddJsonOptions(options =>

@@ -13,6 +13,12 @@ namespace ECommerce.Domain.Entities
 
         public decimal TotalAmount { get; set; }
 
+        public string? RazorpayOrderId { get; set; }
+
+        public string? RazorpayPaymentId { get; set; }
+
+        public DateTime? PaymentVerifiedAt { get; set; }
+
         public OrderStatus Status { get; set; } = OrderStatus.Pending;
 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

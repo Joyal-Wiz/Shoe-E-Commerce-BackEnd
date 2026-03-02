@@ -20,7 +20,7 @@ namespace ECommerce.Infrastructure.Services
 
         public async Task<CategoryResponseDto> CreateCategoryAsync(CreateCategoryDto dto)
         {
-            // Check if category already exists
+            
             var exists = await _context.Categories
                 .AnyAsync(c => c.Name.ToLower() == dto.Name.ToLower());
 

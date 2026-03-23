@@ -173,6 +173,10 @@
     <value> Orders retrieved successfully.</value>
     <comment>Returned when all orders for a user are successfully fetched.</comment>
   </data>
+  <data name="Paymentverified" xml:space="preserve">
+    <value>Payment verified and order updated.</value>
+    <comment>when the Payment verified and order updated.</comment>
+  </data>
   <data name="ProductCreatedSuccessfully" xml:space="preserve">
     <value>Product created successfully.</value>
     <comment>Returned when a new product is successfully created.</comment>

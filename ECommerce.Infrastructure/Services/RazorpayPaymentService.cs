@@ -1,4 +1,5 @@
 ﻿using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using ECommerce.Domain.Enums;
 using ECommerce.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Razorpay.Api;
 using System.Security.Cryptography;
 using System.Text;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ECommerce.Infrastructure.Services
 {
@@ -28,10 +30,10 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.Id == orderId);
 
             if (order == null)
-                throw new Exception("Order not found.");
+                throw new Exception(ErrorMessages.OrderNotFound);
 
             if (order.Status != OrderStatus.Pending)
-                throw new Exception("Order is not in Pending state.");
+                throw new Exception(ErrorMessages.OrderisnotPendingstate);
 
             var key = _configuration["Razorpay:Key"];
             var secret = _configuration["Razorpay:Secret"];
@@ -63,7 +65,7 @@ namespace ECommerce.Infrastructure.Services
                 .FirstOrDefaultAsync(o => o.RazorpayOrderId == razorpayOrderId);
 
             if (order == null)
-                throw new Exception("Order not found.");
+                throw new Exception(ErrorMessages.OrderNotFound);
 
             var secret = _configuration["Razorpay:Secret"];
             var payload = $"{razorpayOrderId}|{paymentId}";

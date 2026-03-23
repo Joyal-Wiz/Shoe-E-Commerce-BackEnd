@@ -4,19 +4,27 @@ using ECommerce.Application.Exceptions;
 using ECommerce.Application.Interface;
 using ECommerce.Application.Resources;
 
+
 namespace ECommerce.Application.Services
 {
     public class AdminService : IAdminService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IOrderRepository _orderRepository;
 
-        public AdminService(IUserRepository userRepository)
+        public AdminService(
+            IUserRepository userRepository,
+            IOrderRepository orderRepository)
         {
             _userRepository = userRepository;
+            _orderRepository = orderRepository;
         }
 
-        public async Task<PaginatedResponseDto<UserResponseDto>>
-            GetAllUsersAsync(PaginationRequestDto pagination)
+        // ============================
+        // GET ALL USERS (PAGINATION)
+        // ============================
+        public async Task<PaginatedResponseDto<UserResponseDto>> GetAllUsersAsync(
+            PaginationRequestDto pagination)
         {
             var (users, totalCount) =
                 await _userRepository.GetPagedUsersAsync(
@@ -43,6 +51,9 @@ namespace ECommerce.Application.Services
             };
         }
 
+        // ============================
+        // GET USER BY ID
+        // ============================
         public async Task<UserResponseDto> GetUserByIdAsync(Guid userId)
         {
             var user = await _userRepository.GetByIdAsync(userId);
@@ -60,10 +71,14 @@ namespace ECommerce.Application.Services
             };
         }
 
+        // ============================
+        // BLOCK USER
+        // ============================
         public async Task<UserStatusResponseDto> BlockUserAsync(
             Guid userId,
             Guid currentAdminId)
         {
+            // Prevent admin blocking themselves
             if (userId == currentAdminId)
                 throw new BadRequestException(
                     ErrorMessages.Admincannotblocktheiraccount);
@@ -73,6 +88,7 @@ namespace ECommerce.Application.Services
             if (user == null)
                 throw new NotFoundException(ErrorMessages.Usernotfound);
 
+            // Prevent blocking already blocked user
             if (!user.IsActive)
                 throw new BadRequestException(
                     ErrorMessages.Userisalreadyblocked);
@@ -88,10 +104,14 @@ namespace ECommerce.Application.Services
             };
         }
 
+        // ============================
+        // UNBLOCK USER
+        // ============================
         public async Task<UserStatusResponseDto> UnblockUserAsync(
-    Guid userId,
-    Guid currentAdminId)
+            Guid userId,
+            Guid currentAdminId)
         {
+            // Prevent admin modifying themselves
             if (userId == currentAdminId)
                 throw new BadRequestException(
                     ErrorMessages.Admincannotmodifytheiraccount);
@@ -101,6 +121,7 @@ namespace ECommerce.Application.Services
             if (user == null)
                 throw new NotFoundException(ErrorMessages.Usernotfound);
 
+            // Prevent unblocking already active user
             if (user.IsActive)
                 throw new BadRequestException(
                     ErrorMessages.Userisalreadyactive);
@@ -115,5 +136,41 @@ namespace ECommerce.Application.Services
                 IsActive = user.IsActive
             };
         }
+
+        // ============================
+        // GET ALL ORDERS (ADMIN VIEW)
+        // ============================
+        public async Task<PaginatedResponseDto<AdminOrderResponseDto>> GetAllOrdersAsync(
+     PaginationRequestDto pagination)
+        {
+            var (orders, totalCount) =
+                await _orderRepository.GetPagedOrdersAsync(
+                    pagination.PageNumber,
+                    pagination.PageSize);
+
+            var items = orders.Select(o => new AdminOrderResponseDto
+            {
+                OrderId = o.Id,
+                CustomerEmail = o.User.Email,
+                TotalAmount = o.TotalAmount,
+                Status = o.Status.ToString(),
+                CreatedAt = o.CreatedAt
+            }).ToList();
+
+            return new PaginatedResponseDto<AdminOrderResponseDto>
+            {
+                Items = items,
+                TotalCount = totalCount,
+                PageNumber = pagination.PageNumber,
+                PageSize = pagination.PageSize,
+                TotalPages = (int)Math.Ceiling(
+                    totalCount / (double)pagination.PageSize)
+            };
+        }
+
+        public async Task<decimal> GetTotalRevenueAsync()
+        {
+            return await _orderRepository.GetTotalRevenueAsync();
+        }
     }
-}
+    }

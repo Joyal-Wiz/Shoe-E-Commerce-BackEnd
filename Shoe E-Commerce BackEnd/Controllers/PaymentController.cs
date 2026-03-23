@@ -1,6 +1,9 @@
 ﻿using ECommerce.Application.DTO.Payment;
 using ECommerce.Application.Interface;
+using ECommerce.Application.Resources;
 using Microsoft.AspNetCore.Mvc;
+using Org.BouncyCastle.Crypto;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 [ApiController]
 [Route("api/payment")]
@@ -35,6 +38,6 @@ public class PaymentController : ControllerBase
             request.Signature
         );
 
-        return Ok("Payment verified and order updated.");
+        return Ok(SuccessMessages.Paymentverified);
     }
 }

@@ -214,6 +214,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Order is not in Pending state..
+        /// </summary>
+        public static string OrderisnotPendingstate {
+            get {
+                return ResourceManager.GetString("OrderisnotPendingstate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Order not found..
         /// </summary>
         public static string OrderNotFound {

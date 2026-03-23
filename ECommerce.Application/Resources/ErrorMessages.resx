@@ -184,6 +184,10 @@
     <value>Only pending orders can be cancelled.</value>
     <comment>Thrown when attempting to cancel an order that is not in pending status.</comment>
   </data>
+  <data name="OrderisnotPendingstate" xml:space="preserve">
+    <value>Order is not in Pending state.</value>
+    <comment>when Order is not in Pending state.</comment>
+  </data>
   <data name="OrderNotFound" xml:space="preserve">
     <value>Order not found.</value>
     <comment>Thrown when the requested order does not exist for the user.</comment>

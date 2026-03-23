@@ -187,6 +187,15 @@ namespace ECommerce.Application.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment verified and order updated..
+        /// </summary>
+        public static string Paymentverified {
+            get {
+                return ResourceManager.GetString("Paymentverified", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Product created successfully..
         /// </summary>
         public static string ProductCreatedSuccessfully {

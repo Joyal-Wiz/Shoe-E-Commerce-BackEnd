@@ -114,6 +114,7 @@ namespace ECommerce.API.Controllers
             return StatusCode(response.StatusCode, response);
         }
 
+
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteProduct(Guid id)
         {
@@ -126,6 +127,34 @@ namespace ECommerce.API.Controllers
                 );
 
             return StatusCode(response.StatusCode, response);
+        }
+
+
+        [HttpGet("orders")]
+        public async Task<IActionResult> GetAllOrders(
+    [FromQuery] PaginationRequestDto pagination)
+        {
+            var result = await _adminService.GetAllOrdersAsync(pagination);
+
+            return Ok(
+                ApiResponse<PaginatedResponseDto<AdminOrderResponseDto>>
+                    .SuccessResponse(
+                        "Orders retrieved successfully",
+                        result
+                    )
+            );
+        }
+        [HttpGet("revenue")]
+        public async Task<IActionResult> GetTotalRevenue()
+        {
+            var result = await _adminService.GetTotalRevenueAsync();
+
+            return Ok(
+                ApiResponse<decimal>.SuccessResponse(
+                    "Total revenue fetched successfully",
+                    result
+                )
+            );
         }
     }
 }
